@@ -1,0 +1,107 @@
+/* Fondo general */
+.login-wrapper {
+    background-image: url('/fondo5.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    min-width: 100vw;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+/* Borde con gradiente */
+.login-card-border {
+    width: 30rem;
+    border-radius: 56px;
+    padding: 0.3rem;
+    background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);
+}
+
+/* Recuadro blanco del formulario */
+.login-card {
+    width: 100%;
+    padding: 5rem 2rem;
+    background-color: white;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Imagen superior del formulario */
+.login-header-img {
+    position: absolute;
+    top: 0;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
+    z-index: 0;
+    border-radius: 53px 53px 0 0;
+}
+
+/* Contenedor de títulos */
+.login-header {
+    position: relative;
+    z-index: 1;
+}
+
+/* Título INICIAR SESIÓN */
+.login-title {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 1.875rem;
+    color: darkblue;
+    -webkit-text-stroke: 2px lightgray;
+    paint-order: stroke fill;
+    margin-bottom: 0.5rem;
+}
+
+/* Subtítulo */
+.login-subtitle {
+    font-family: sans-serif;
+    font-weight: bold;
+    color: darkblue;
+    -webkit-text-stroke: 2px lightgray;
+    paint-order: stroke fill;
+}
+
+/* Labels */
+.login-label {
+    display: block;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: darkblue;
+}
+
+/* Inputs de PrimeNG */
+:host ::ng-deep .p-inputtext {
+    border-color: #1E90FF !important;
+    border-radius: 12px !important;
+}
+
+:host ::ng-deep .p-inputtext:focus {
+    border-color: #00008B !important;
+    box-shadow: 0 0 0 2px rgba(30, 144, 255, 0.3) !important;
+}
+
+/* Botón */
+:host ::ng-deep .p-button {
+    background-color: #B8860B !important;
+    border-color: #B8860B !important;
+    color: darkblue !important;
+}
+
+:host ::ng-deep .p-button .p-button-label {
+    font-weight: bold !important;
+    font-family: sans-serif !important;
+}
+
+:host ::ng-deep .p-button:hover {
+    background-color: #8B6508 !important;
+    border-color: #8B6508 !important;
+}

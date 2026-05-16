@@ -1,23 +1,67 @@
-import { Component, computed, inject, input } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component} from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
+import { UsuarioService } from '../../service/usuario-service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { DialogAlert } from '../dialog-alert/dialog-alert';
+import { DialogService } from '../../service/dialog-service';
 
 
 @Component({
   selector: 'app-usuario-login',
-  imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule],
+  imports: [MatFormFieldModule, CommonModule, ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, ReactiveFormsModule, DialogAlert],
   templateUrl: './usuario-login.html',
   styleUrl: './usuario-login.css',
 })
 export class UsuarioLogin {
-       email: string = '';
+    
+    loginForm! : FormGroup;
+    errorMessage : string = '';
+    loading : boolean = false;
 
-    password: string = '';
+    constructor(private fb : FormBuilder, private usuarioService: UsuarioService, private router: Router, private dialogService: DialogService){
+       this.loginForm = this.fb.group({
+        username: ['',[Validators.required]],
+        password: ['',[Validators.required, Validators.minLength(6)]]
+      });
+    }
 
-    checked: boolean = false;
+    onSubmit(): void{
+      if(this.loginForm.invalid){
+        this.loginForm.markAllAsTouched();
+        const usernameVacio = this.loginForm.get('username')?.hasError('required');
+        const passwordVacio = this.loginForm.get('password')?.hasError('required');
+
+       if (usernameVacio && passwordVacio) {
+          this.dialogService.mostrar('El usuario y la contraseña son requeridos', 'error');
+        } else if (usernameVacio) {
+         this.dialogService.mostrar('El campo usuario es requerido', 'error');
+        } else if (passwordVacio) {
+          this.dialogService.mostrar('El campo contraseña es requerido', 'error');
+        }
+        return;
+      }
+
+      this.loading = true;
+
+      this.usuarioService.loginUsuario(this.loginForm.value).subscribe({
+        next: (response) => {
+          this.loading = false;
+          sessionStorage.setItem('usuarioLogueado', JSON.stringify(response));
+          console.log(('Acceso concedido'))
+        },
+        error: (err) => {
+          this.loading = false
+          const mensaje = err.status === 401 ? 'Credenciales incorrectas' : 'Error del servidor, intentelo más tarde';
+          this.dialogService.mostrar(mensaje, 'error'); 
+        }
+      });
+      
+    }
 }

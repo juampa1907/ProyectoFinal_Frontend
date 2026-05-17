@@ -1,4 +1,3 @@
-/* Fondo general */
 .login-wrapper {
     background-image: url('/fondo5.jpg');
     background-size: cover;
@@ -13,7 +12,6 @@
     font-family: sans-serif;
 }
 
-/* Borde con gradiente */
 .login-card-border {
     width: 30rem;
     border-radius: 56px;
@@ -21,7 +19,6 @@
     background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);
 }
 
-/* Recuadro blanco del formulario */
 .login-card {
     width: 100%;
     padding: 5rem 2rem;
@@ -31,25 +28,25 @@
     overflow: hidden;
 }
 
-/* Imagen superior del formulario */
 .login-header-img {
     position: absolute;
     top: 0;
-    left: 25%;
-    width: 50%;
-    height: 50%;
+    left: 20%;
+    width: 60%;
+    height: 40%;
     object-fit: cover;
     z-index: 0;
     border-radius: 53px 53px 0 0;
 }
 
-/* Contenedor de títulos */
 .login-header {
     position: relative;
     z-index: 1;
+    margin-top: 10rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
 }
 
-/* Título INICIAR SESIÓN */
 .login-title {
     font-family: sans-serif;
     font-weight: bold;
@@ -60,7 +57,6 @@
     margin-bottom: 0.5rem;
 }
 
-/* Subtítulo */
 .login-subtitle {
     font-family: sans-serif;
     font-weight: bold;
@@ -69,48 +65,12 @@
     paint-order: stroke fill;
 }
 
-/* Labels */
 .login-label {
     display: block;
     font-family: sans-serif;
     font-weight: bold;
     font-size: 1.25rem;
     color: darkblue;
-}
-
-/* Inputs de PrimeNG */
-:host ::ng-deep .p-inputtext {
-    border-color: #1E90FF !important;
-    border-radius: 12px !important;
-}
-
-:host ::ng-deep .p-inputtext:focus {
-    border-color: #00008B !important;
-    box-shadow: 0 0 0 2px rgba(30, 144, 255, 0.3) !important;
-}
-
-/* Botón */
-:host ::ng-deep .p-button {
-    background-color: #B8860B !important;
-    border-color: #B8860B !important;
-    color: darkblue !important;
-    font-weight: bold !important;
-    font-family: sans-serif !important;
-}
-
-:host ::ng-deep .p-button:hover {
-    background-color: #8B6508 !important;
-    border-color: #8B6508 !important;
-}
-
-:host ::ng-deep .p-password-toggle-mask-icon {
-  transition: color 0.2s, transform 0.2s;
-}
-
-:host ::ng-deep .p-password-toggle-mask-icon:hover {
-  color: #6366f1;         /* color al hacer hover */
-  transform: scale(1.2);  /* se agranda un poco */
-  cursor: pointer;
 }
 
 :host ::ng-deep .link-span {
@@ -131,3 +91,37 @@
     opacity: 0.6;
     transform: scale(0.98);
 }
+
+:host ::ng-deep .p-inputtext {
+    border-color: #1E90FF !important;
+    border-radius: 12px !important;
+}
+
+:host ::ng-deep .p-inputtext:focus {
+    border-color: #00008B !important;
+    box-shadow: 0 0 0 2px rgba(30, 144, 255, 0.3) !important;
+}
+
+:host ::ng-deep .p-button {
+    background-color: #B8860B !important;
+    border-color: #B8860B !important;
+    color: darkblue !important;
+    font-weight: bold !important;
+    font-family: sans-serif !important;
+}
+
+:host ::ng-deep .p-button:hover {
+    background-color: #8B6508 !important;
+    border-color: #8B6508 !important;
+}
+
+:host ::ng-deep .p-password-toggle-mask-icon {
+    transition: color 0.2s, transform 0.2s;
+}
+
+:host ::ng-deep .p-password-toggle-mask-icon:hover {
+    color: #6366f1;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+

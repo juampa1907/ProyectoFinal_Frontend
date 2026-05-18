@@ -83,7 +83,6 @@ export class CreateUsuario {
 
   roles = [
     { label: 'Administrador', value: 1 },
-    { label: 'Usuario', value: 2},
     { label: 'Operador', value: 3 },
   ];
 

@@ -14,6 +14,8 @@ import { DialogConfirmEliminar } from '../dialogs/dialog-confirm-eliminar/dialog
 import { DialogConfirmService } from '../../service/dialog-confirm-service';
 import { DialogService } from '../../service/dialog-service';
 import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
+import { PerfilService } from '../../service/perfil-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-usuario-table',
@@ -31,11 +33,22 @@ export class UsuarioTable implements OnInit {
 
   usuarios = new MatTableDataSource<Usuario>([]);
   displayedColumns: string[] = ['idUsuario', 'username', 'correo', 'nombreApellido', 'idRol', 'estado', 'fechaUltClave', 'editar', 'eliminar'];
+  private perfilSubscription!: Subscription;
 
-  constructor(private usuarioService: UsuarioService, private cdr: ChangeDetectorRef, public dialogConfirmService: DialogConfirmService, private dialogService: DialogService) { }
+  constructor(private usuarioService: UsuarioService, private cdr: ChangeDetectorRef, public dialogConfirmService: DialogConfirmService, private dialogService: DialogService, private perfilService: PerfilService) { }
 
   ngOnInit(): void {
     this.listUsuarios();
+    this.perfilSubscription = this.perfilService.perfilActualizado$.subscribe(() => {
+      this.listUsuarios();
+      this.perfilService.reiniciarNotificacion();
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.perfilSubscription) {
+      this.perfilSubscription.unsubscribe();
+    }
   }
 
   listUsuarios(): void {

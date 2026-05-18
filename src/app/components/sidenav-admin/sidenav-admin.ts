@@ -1,9 +1,11 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, input, signal, ViewChild } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Header } from '../header/header';
 import { MenuItem } from '../../models/interface';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink, RouterLinkActive, RouterModule } from "@angular/router";
+import { DialogEditarPerfil } from '../dialogs/dialog-editar-perfil/dialog-editar-perfil';
+import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
 
 @Component({
   selector: 'app-sidenav-admin',
@@ -17,7 +19,7 @@ import { RouterLink, RouterLinkActive, RouterModule } from "@angular/router";
     display: none !important;
   }
   `],
-  imports: [MatSidenavModule, Header, MatIconModule, RouterModule, RouterLink, RouterLinkActive],
+  imports: [MatSidenavModule, Header, MatIconModule, RouterModule, RouterLink, RouterLinkActive, DialogEditarPerfil, DialogAlert],
   template: `
     <mat-sidenav-container class="h-screen" style="background-image: url('/fondo5.jpg');">
     <mat-sidenav class="!rounded-none !overflow-hidden" style="background-image: url('/fondo5.jpg');" [style.width.px]="width()" opened mode="side">
@@ -51,13 +53,18 @@ import { RouterLink, RouterLinkActive, RouterModule } from "@angular/router";
     </mat-sidenav>
     <mat-sidenav-content [style.margin-left.px]="width()"
         class="transition-[margin] duration-700 ease-[cubic-bezier(0.25,0.8,0.25,1)]">
-        <app-header [collapsed]="collapsed()" (onToggle)="collapsed.set(!collapsed())" />
+        <app-header [collapsed]="collapsed()" (onToggle)="collapsed.set(!collapsed())" (onAccount)="abrirEditarPerfil()" />
         <router-outlet/>
     </mat-sidenav-content>
 </mat-sidenav-container>
+
+<app-dialog-editar-perfil #dialogEditarPerfil (perfilEditado)="onPerfilEditado($event)" />
+<app-dialog-alert />
   `,
 })
 export class SidenavAdmin {
+  @ViewChild('dialogEditarPerfil') dialogEditarPerfil!: DialogEditarPerfil;
+
   items = signal<MenuItem[]>([
     { path: '/dashboard', icon: 'assignment', label: 'Auditoria' },
     { path: '/equipos', icon: 'shield', label: 'Equipos' },
@@ -72,4 +79,14 @@ export class SidenavAdmin {
 
   collapsed = signal(false)
   width = computed(() => (this.collapsed() ? 100 : 250));
+
+  abrirEditarPerfil(): void {
+    if (this.dialogEditarPerfil) {
+      this.dialogEditarPerfil.abrir();
+    }
+  }
+
+  onPerfilEditado(usuario: any): void {
+    console.log('Perfil actualizado:', usuario);
+  }
 }

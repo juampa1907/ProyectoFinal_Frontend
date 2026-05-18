@@ -1,0 +1,38 @@
+<p-dialog [(visible)]="visible" [modal]="true" [closable]="false" [style]="{ width: '380px', borderRadius: '20px' }"
+    [contentStyle]="{ padding: '0' }">
+
+    <ng-template pTemplate="header">
+        <div class="dialog-header">
+            <span class="dialog-title">EDITAR PERFIL</span>
+        </div>
+    </ng-template>
+
+    <div class="dialog-body">
+        <form [formGroup]="form">
+            <label class="field-label">Username</label>
+            <input pInputText formControlName="username" class="field-input"
+                [class.input-error]="isInvalid('username')" />
+            <span class="error-msg" *ngIf="isInvalid('username')">Mínimo 3 caracteres, sin espacios</span>
+
+            <label class="field-label">Nombre Completo</label>
+            <input pInputText formControlName="nombreApellido" class="field-input"
+                [class.input-error]="isInvalid('nombreApellido')" />
+            <span class="error-msg" *ngIf="isInvalid('nombreApellido')">Mínimo 6 caracteres</span>
+
+            <label class="field-label">Correo</label>
+            <input pInputText formControlName="correo" class="field-input"
+                [class.input-error]="isInvalid('correo')" />
+            <span class="error-msg" *ngIf="isInvalid('correo')">Correo inválido</span>
+
+            <button type="button" pButton label="Cambiar contraseña"
+                class="password-btn" (click)="togglePassword()"></button>
+        </form>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <div class="dialog-footer">
+            <p-button label="Cancelar" severity="secondary" (onClick)="cancelar()"></p-button>
+            <p-button label="Guardar Cambios" (onClick)="onSubmit()"></p-button>
+        </div>
+    </ng-template>
+</p-dialog>

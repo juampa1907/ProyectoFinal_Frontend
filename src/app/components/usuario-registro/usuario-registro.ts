@@ -50,14 +50,14 @@ function usuarioValido(control: AbstractControl): ValidationErrors | null {
   const tieneNumero = /[0-9]/.test(valor);
   const tieneLetra = /[a-zA-Z]/.test(valor);
 
-  if(tieneEspacio && !tieneNumero && !tieneLetra){
-    return { conEspacio : true, sinNumero : true, sinLetra : true}
-  } else if (tieneEspacio){
-    return { conEspacio : true }
-  } else if (!tieneNumero){
-    return {sinNumero : true}
-  } else if (!tieneLetra){
-    return {sinLetra : true}
+  if (tieneEspacio && !tieneNumero && !tieneLetra) {
+    return { conEspacio: true, sinNumero: true, sinLetra: true }
+  } else if (tieneEspacio) {
+    return { conEspacio: true }
+  } else if (!tieneNumero) {
+    return { sinNumero: true }
+  } else if (!tieneLetra) {
+    return { sinLetra: true }
   }
 
   return null;
@@ -65,19 +65,31 @@ function usuarioValido(control: AbstractControl): ValidationErrors | null {
 
 function nombreApellidoValido(control: AbstractControl): ValidationErrors | null {
   const valor = control.value
-  if(!valor) return null;
+  if (!valor) return null;
 
   const tieneNumero = /[0-9]/.test(valor);
   const tieneCaracteresEspeciales = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(valor);
 
-  if(tieneNumero && tieneCaracteresEspeciales){
-    return { conNumero : true, conCaracter : true}
-  } else if (tieneNumero){
+  if (tieneNumero && tieneCaracteresEspeciales) {
+    return { conNumero: true, conCaracter: true }
+  } else if (tieneNumero) {
     return { conNumero: true }
-  } else if (tieneCaracteresEspeciales){
-    return { conCaracter : true }
+  } else if (tieneCaracteresEspeciales) {
+    return { conCaracter: true }
   }
 
+  return null;
+}
+
+function correoValido(control: AbstractControl): ValidationErrors | null {
+  const valor = control.value;
+  if (!valor) return null;
+
+  const tieneEspacio = /\s/.test(valor);
+  const tieneMayuscula = /[A-Z]/.test(valor);
+
+  if (tieneEspacio) return { conEspacio: true };
+  if (tieneMayuscula) return { conMayuscula: true };
   return null;
 }
 
@@ -105,6 +117,7 @@ export class UsuarioRegistro {
     this.registroForm = this.fb.group({
       nombreApellido: ['', [Validators.required, Validators.minLength(6), nombreApellidoValido]],
       username: ['', [Validators.required, Validators.minLength(3), usuarioValido]],
+      correo: ['', [Validators.required, Validators.email, correoValido]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(8), passwordSegura]],
       confirmarPassword: ['', [Validators.required]]
     }, { validators: passwordsIguales });
@@ -134,6 +147,14 @@ export class UsuarioRegistro {
         this.dialogService.mostrar('El usuario debe tener al menos 1 letra', 'error');
       } else if (f.get('username')?.hasError('conEspacio')) {
         this.dialogService.mostrar('El usuario no puede tener espacios', 'error');
+      } else if (f.get('correo')?.hasError('required')) {
+        this.dialogService.mostrar('El correo electronico es requerido', 'error');
+      } else if (f.get('correo')?.hasError('email')) {
+        this.dialogService.mostrar('Introduzca un formato de correo valido', 'error');
+      } else if (f.get('correo')?.hasError('conEspacio')) {
+        this.dialogService.mostrar('Introduzca un formato de correo valido', 'error');
+      } else if (f.get('correo')?.hasError('conMayuscula')) {
+        this.dialogService.mostrar('Introduzca un formato de correo valido', 'error');
       } else if (f.get('password')?.hasError('required')) {
         this.dialogService.mostrar('La contraseña es requerida', 'error');
       } else if (f.get('password')?.hasError('minlength')) {

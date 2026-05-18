@@ -73,7 +73,6 @@ export class SidenavAdmin {
     { path: '/jugadores', icon: 'sports_soccer', label: 'Jugadores' },
     { path: '/params', icon: 'tune', label: 'Parametros' },
     { path: '/partidos', icon: 'sports', label: 'Partidos' },
-    { path: '/roles', icon: 'manage_accounts', label: 'Roles' },
     { path: '/usuarios', icon: 'group', label: 'Usuarios' }
   ])
 

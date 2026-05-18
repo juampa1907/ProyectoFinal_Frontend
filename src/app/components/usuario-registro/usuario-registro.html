@@ -39,6 +39,11 @@
                     <input pInputText type="text" placeholder="Ej: Gonzo14" formControlName="username"
                         class="w-full mb-4" [class.ng-invalid]="registroForm.get('username')?.invalid
                                   && registroForm.get('username')?.touched" />
+                    
+                    <label class="login-label mb-2">Correo Electronico</label>
+                    <input pInputText type="text" placeholder="Ej: example@gmail.com" formControlName="correo"
+                        class="w-full mb-4" [class.ng-invalid]="registroForm.get('correo')?.invalid
+                                  && registroForm.get('correo')?.touched" />
 
                     <label class="login-label mb-2">Contraseña</label>
                     <p-password formControlName="password" placeholder="Mínimo 6 caracteres" [toggleMask]="true"

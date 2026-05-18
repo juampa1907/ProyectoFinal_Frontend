@@ -4,3 +4,9 @@ export interface UsuarioCreacion {
   nombreApellido: string;
   idRol: number;
 }
+
+export interface MenuItem {
+  path: string;
+  icon: string;
+  label: string;
+}

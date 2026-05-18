@@ -1,0 +1,75 @@
+<p-dialog [(visible)]="visible" [modal]="true" [closable]="false"
+    [style]="{ width: '420px', borderRadius: '20px' }"
+    [contentStyle]="{ padding: '0' }">
+ 
+    <ng-template pTemplate="header">
+        <div class="dialog-header">
+            <span class="dialog-title">CREAR USUARIO</span>
+        </div>
+    </ng-template>
+ 
+    <div class="dialog-body">
+        <form [formGroup]="form">
+ 
+            <label class="field-label">Nombre y Apellido</label>
+            <input pInputText type="text" placeholder="Ej: Pablo González"
+                formControlName="nombreApellido" class="field-input"
+                [class.input-error]="isInvalid('nombreApellido')" />
+            <span class="error-msg" *ngIf="hasError('nombreApellido', 'required')">Campo requerido</span>
+            <span class="error-msg" *ngIf="hasError('nombreApellido', 'minlength')">Mínimo 6 caracteres</span>
+            <span class="error-msg" *ngIf="hasError('nombreApellido', 'conNumero')">No puede contener números</span>
+            <span class="error-msg" *ngIf="hasError('nombreApellido', 'conCaracter')">No puede contener caracteres especiales</span>
+ 
+            <label class="field-label">Usuario</label>
+            <input pInputText type="text" placeholder="Ej: Gonzo14"
+                formControlName="username" class="field-input"
+                [class.input-error]="isInvalid('username')" />
+            <span class="error-msg" *ngIf="hasError('username', 'required')">Campo requerido</span>
+            <span class="error-msg" *ngIf="hasError('username', 'minlength')">Mínimo 3 caracteres</span>
+            <span class="error-msg" *ngIf="hasError('username', 'conEspacio')">No puede contener espacios</span>
+            <span class="error-msg" *ngIf="hasError('username', 'sinNumero')">Debe tener al menos 1 número</span>
+            <span class="error-msg" *ngIf="hasError('username', 'sinLetra')">Debe tener al menos 1 letra</span>
+ 
+            <label class="field-label">Correo</label>
+            <input pInputText type="text" placeholder="Ej: ejemplo@gmail.com"
+                formControlName="correo" class="field-input"
+                [class.input-error]="isInvalid('correo')" />
+            <span class="error-msg" *ngIf="hasError('correo', 'required')">Campo requerido</span>
+            <span class="error-msg" *ngIf="hasError('correo', 'email')">Formato de correo inválido</span>
+            <span class="error-msg" *ngIf="hasError('correo', 'tieneEspacio')">Formato de correo inválido</span>
+            <span class="error-msg" *ngIf="hasError('correo', 'tieneMayuscula')">Formato de correo inválido</span>
+
+            <label class="field-label">Rol</label>
+            <p-select formControlName="idRol" [options]="roles"
+                optionLabel="label" optionValue="value"
+                placeholder="Selecciona un rol" styleClass="field-select"
+                appendTo="body"
+                [class.input-error]="isInvalid('idRol')"
+                scrollHeight="150px">
+            </p-select>
+            <span class="error-msg" *ngIf="hasError('idRol', 'required')">Selecciona un rol</span>
+ 
+            <label class="field-label">Contraseña</label>
+            <p-password formControlName="password" placeholder="Mínimo 6 caracteres"
+                [toggleMask]="true" [fluid]="true" [feedback]="false"
+                [styleClass]="isInvalid('password') ? 'field-password ng-invalid ng-dirty' : 'field-password'">
+            </p-password>
+            <span class="error-msg" *ngIf="hasError('password', 'required')">Campo requerido</span>
+            <span class="error-msg" *ngIf="hasError('password', 'minlength')">Mínimo 6 caracteres</span>
+            <span class="error-msg" *ngIf="hasError('password', 'maxlength')">Máximo 8 caracteres</span>
+            <span class="error-msg" *ngIf="hasError('password', 'sinMayuscula')">Debe tener al menos una mayúscula</span>
+            <span class="error-msg" *ngIf="hasError('password', 'sinMinuscula')">Debe tener al menos una minúscula</span>
+            <span class="error-msg" *ngIf="hasError('password', 'sinNumero')">Debe tener al menos un número</span>
+            <span class="error-msg" *ngIf="hasError('password', 'conEspacio')">No puede contener espacios</span>
+ 
+        </form>
+    </div>
+ 
+    <ng-template pTemplate="footer">
+        <div class="dialog-footer">
+            <p-button label="Cancelar" severity="secondary" (onClick)="cancelar()"></p-button>
+            <p-button label="Crear Usuario" (onClick)="onSubmit()" [disabled]="loading"></p-button>
+        </div>
+    </ng-template>
+ 
+</p-dialog>

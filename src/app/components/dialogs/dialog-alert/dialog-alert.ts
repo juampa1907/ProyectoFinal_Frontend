@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { DialogService } from '../../service/dialog-service';
+import { DialogService } from '../../../service/dialog-service';
 import { Subscription } from 'rxjs';
 
 @Component({

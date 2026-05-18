@@ -1,0 +1,32 @@
+.dialog-header {
+  width: 100%;
+}
+
+.dialog-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #ef4444;
+}
+
+.dialog-body {
+  padding: 1rem 0.5rem;
+  text-align: center;
+}
+
+.confirm-msg {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.confirm-warn {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}

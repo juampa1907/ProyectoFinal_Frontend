@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario';
-import { UsuarioCreacion } from '../models/interface';
+import { UsuarioCreacion, } from '../models/interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
 
-  private api : string = 'http://localhost:8080/ProyectoFinal_Backend/api/proyecto/';
+  private api : string = 'http://localhost:8080/ProyectoFinal_Backend/api/usuario/';
 
   constructor(private http: HttpClient){}
 
@@ -23,5 +23,13 @@ export class UsuarioService {
 
   saveUsuario(usuario: UsuarioCreacion): Observable<Usuario>{
     return this.http.post<Usuario>(this.api + 'saveUsuario', usuario);
+  }
+
+  putUsuario(usuario: any):Observable<Usuario>{
+    return this.http.put<Usuario>(this.api + 'updateUsuario', usuario);
+  }
+
+  deleteUsuario(id: number): Observable<void> {
+    return this.http.delete<void>(this.api + 'deleteUsuario/' + id);
   }
 }

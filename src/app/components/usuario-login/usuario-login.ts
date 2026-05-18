@@ -9,7 +9,7 @@ import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 import { UsuarioService } from '../../service/usuario-service';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { DialogAlert } from '../dialog-alert/dialog-alert';
+import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
 import { DialogService } from '../../service/dialog-service';
 
 
@@ -54,7 +54,7 @@ export class UsuarioLogin {
         next: (response) => {
           this.loading = false;
           sessionStorage.setItem('usuarioLogueado', JSON.stringify(response));
-          console.log(('Acceso concedido'))
+          this.router.navigate(['/dashboard']);
         },
         error: (err) => {
           this.loading = false

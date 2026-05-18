@@ -6,7 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
-import { DialogAlert } from '../dialog-alert/dialog-alert';
+import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
 import { UsuarioService } from '../../service/usuario-service';
 import { DialogService } from '../../service/dialog-service';
 
@@ -161,6 +161,7 @@ export class UsuarioRegistro {
     const nuevoUsuario = {
       username: this.registroForm.value.username,
       password: this.registroForm.value.password,
+      correo: this.registroForm.value.correo,
       nombreApellido: this.registroForm.value.nombreApellido,
       idRol: 2
     };

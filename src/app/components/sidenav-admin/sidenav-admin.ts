@@ -19,7 +19,7 @@ import { RouterLink, RouterLinkActive, RouterModule } from "@angular/router";
   `],
   imports: [MatSidenavModule, Header, MatIconModule, RouterModule, RouterLink, RouterLinkActive],
   template: `
-    <mat-sidenav-container class="h-screen">
+    <mat-sidenav-container class="h-screen" style="background-image: url('/fondo5.jpg');">
     <mat-sidenav class="!rounded-none !overflow-hidden" style="background-image: url('/fondo5.jpg');" [style.width.px]="width()" opened mode="side">
 
         <div class="transition-[width] duration-700 ease-[cubic-bezier(0.25,0.8,0.25,1)] overflow-hidden"

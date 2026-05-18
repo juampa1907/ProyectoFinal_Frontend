@@ -3,3 +3,21 @@
 @import 'tailwindcss';
 
 @import "primeicons/primeicons.css";
+
+.p-select-overlay {
+  .p-select-list-container {
+    max-height: 80px !important;
+    overflow-y: auto !important;
+    scrollbar-width: thin !important;
+  }
+
+  .p-select-list-container::-webkit-scrollbar {
+    display: block !important;
+    width: 6px !important;
+  }
+
+  .p-select-list-container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 3px;
+  }
+}

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DialogService } from '../../../service/dialog-service';
@@ -29,7 +29,7 @@ import { Subscription } from 'rxjs';
     </p-dialog>
   `,
 })
-export class DialogAlert implements OnInit {
+export class DialogAlert implements OnInit, OnDestroy {
   visible = false;
   mensaje = '';
   tipo: 'error' | 'exito' = 'error';

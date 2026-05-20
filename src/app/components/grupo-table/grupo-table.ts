@@ -3,6 +3,8 @@ import { Equipo } from '../../models/equipo';
 import { EquipoService } from '../../service/equipo-service';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { DialogEditGrupo } from '../dialogs/dialog-edit-grupo/dialog-edit-grupo';
 import { GrupoService } from '../../service/grupo-service';
 import { DialogService } from '../../service/dialog-service';
@@ -11,7 +13,7 @@ import { Grupo } from '../../models/grupo';
 
 @Component({
   selector: 'app-grupo-table',
-  imports: [CommonModule, MatIconModule, DialogEditGrupo, DialogAlert],
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatTooltipModule, DialogEditGrupo, DialogAlert],
   templateUrl: './grupo-table.html',
   styleUrl: './grupo-table.css',
 })
@@ -88,9 +90,6 @@ export class GrupoTable implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        // error handled silently
-        // error handled silently
-        // error handled silently
         this.dialogEditar.cerrarConError();
         this.dialogService.mostrar(
           err.status === 0

@@ -5,7 +5,6 @@ import {
   FormBuilder,
   FormGroup,
   FormsModule,
-  MaxLengthValidator,
   ReactiveFormsModule,
   ValidationErrors,
   Validators,

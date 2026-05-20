@@ -246,6 +246,6 @@ export class PartidoTable implements OnInit {
   }
 
   onAbrirEliminar(partido: Partido): void {
-    this.dialogConfirmService.abrir(partido.idPartido);
+    this.dialogConfirmService.abrir(partido.idPartido, 'PARTIDO');
   }
 }

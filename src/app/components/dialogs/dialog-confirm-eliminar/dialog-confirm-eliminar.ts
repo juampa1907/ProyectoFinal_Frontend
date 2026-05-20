@@ -22,6 +22,7 @@ export class DialogConfirmEliminar implements OnInit, OnDestroy {
   visible = false;
   loading = false;
   idUsuario!: number;
+  entidad: string = 'REGISTRO';
   private suscripcion!: Subscription;
 
   @Output() confirmarEliminar = new EventEmitter<number>();
@@ -32,8 +33,9 @@ export class DialogConfirmEliminar implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.suscripcion = this.dialogConfirmService.abrir$.subscribe((id) => {
-      this.idUsuario = id;
+    this.suscripcion = this.dialogConfirmService.abrir$.subscribe((data) => {
+      this.idUsuario = data.id;
+      this.entidad = data.entidad ?? 'REGISTRO';
       this.visible = true;
       this.cdr.detectChanges();
     });

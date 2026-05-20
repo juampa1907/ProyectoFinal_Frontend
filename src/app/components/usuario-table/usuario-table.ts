@@ -113,7 +113,7 @@ export class UsuarioTable implements OnInit, OnDestroy {
       case 2:
         return 'Usuario';
       case 3:
-        return 'Operario';
+        return 'Operador';
       default:
         return 'Sin rol';
     }
@@ -207,6 +207,6 @@ export class UsuarioTable implements OnInit, OnDestroy {
       this.dialogService.mostrar('No se puede eliminar un usuario Administrador', 'error');
       return;
     }
-    this.dialogConfirmService.abrir(usuario.idUsuario);
+    this.dialogConfirmService.abrir(usuario.idUsuario, 'USUARIO');
   }
 }

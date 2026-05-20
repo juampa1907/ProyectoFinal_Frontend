@@ -105,17 +105,3 @@
   height: 48px;
 }
 
-:host ::ng-deep {
-  mat-sidenav-content,
-  .mat-sidenav-content,
-  .mat-drawer-content {
-    overflow: hidden !important;
-    scrollbar-width: none !important;
-    -ms-overflow-style: none !important;
-
-    &::-webkit-scrollbar {
-      display: none !important;
-      width: 0 !important;
-    }
-  }
-}

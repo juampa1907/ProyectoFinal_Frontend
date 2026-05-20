@@ -1,12 +1,12 @@
 <p-dialog [(visible)]="visible" [modal]="true" [closable]="false" [style]="{ width: '400px' }">
   <ng-template pTemplate="header">
     <div class="dialog-header">
-      <span class="dialog-title">⚠️ ELIMINAR USUARIO</span>
+      <span class="dialog-title">⚠️ ELIMINAR {{ entidad }}</span>
     </div>
   </ng-template>
 
   <div class="dialog-body">
-    <p class="confirm-msg">¿Está seguro de eliminar este usuario?</p>
+    <p class="confirm-msg">¿Está seguro de eliminar este {{ entidad | lowercase }}?</p>
     <p class="confirm-warn">Esta acción no se puede deshacer.</p>
   </div>
 

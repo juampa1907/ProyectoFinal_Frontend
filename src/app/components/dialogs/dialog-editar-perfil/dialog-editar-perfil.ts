@@ -82,6 +82,10 @@ export class DialogEditarPerfil implements OnInit {
         usuario?.correo ?? '',
         [Validators.required, Validators.email, tieneEspacio, tieneMayuscula],
       ],
+      password: [
+        '',
+        [Validators.minLength(6), Validators.maxLength(8)],
+      ],
     });
   }
 
@@ -98,11 +102,15 @@ export class DialogEditarPerfil implements OnInit {
   cancelar(): void {
     this.visible = false;
     this.showPassword.set(false);
+    this.form.get('password')?.reset('');
     this.cargarDatosUsuario();
   }
 
   togglePassword(): void {
     this.showPassword.update((v) => !v);
+    if (!this.showPassword()) {
+      this.form.get('password')?.reset('');
+    }
   }
 
   onSubmit(): void {

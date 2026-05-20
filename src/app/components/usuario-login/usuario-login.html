@@ -61,9 +61,7 @@
               placeholder="Contraseña"
               formControlName="password"
               [toggleMask]="true"
-              styleClass="mb-4 loginForm.get('password')?.invalid
-                        && loginForm.get('password')?.touched
-                        ? 'ng-invalid ng-dirty' : ''"
+              [styleClass]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched ? 'mb-4 ng-invalid ng-dirty' : 'mb-4'"
               [fluid]="true"
               [feedback]="false"
             ></p-password>

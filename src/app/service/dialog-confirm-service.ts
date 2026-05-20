@@ -5,7 +5,6 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class DialogConfirmService {
-
   private abrirSubject = new Subject<number>();
   abrir$ = this.abrirSubject.asObservable();
 

@@ -1,6 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal, Output, EventEmitter } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
@@ -32,13 +39,7 @@ export function tieneMayuscula(c: AbstractControl): ValidationErrors | null {
 
 @Component({
   selector: 'app-dialog-editar-perfil',
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    DialogModule,
-    ButtonModule,
-    InputTextModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, DialogModule, ButtonModule, InputTextModule],
   templateUrl: './dialog-editar-perfil.html',
   styleUrl: './dialog-editar-perfil.css',
 })
@@ -101,7 +102,7 @@ export class DialogEditarPerfil implements OnInit {
   }
 
   togglePassword(): void {
-    this.showPassword.update(v => !v);
+    this.showPassword.update((v) => !v);
   }
 
   onSubmit(): void {
@@ -136,7 +137,7 @@ export class DialogEditarPerfil implements OnInit {
         const mensaje = error?.error?.message || 'Error del servidor, intente más tarde';
         this.dialogService.mostrar(mensaje, 'error');
         this.loading.set(false);
-      }
+      },
     });
   }
 }

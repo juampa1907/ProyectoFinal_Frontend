@@ -4,21 +4,21 @@
   gap: 10px;
   padding: 4px 0;
 }
- 
+
 .dialog-title {
   font-size: 1.2rem;
   font-weight: 700;
   color: darkblue;
   letter-spacing: 0.5px;
 }
- 
+
 .dialog-body {
   padding: 8px 24px 0 24px;
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
- 
+
 .field-label {
   display: block;
   font-weight: 700;
@@ -27,24 +27,24 @@
   margin-top: 20px;
   margin-bottom: 4px;
 }
- 
+
 .field-input {
   width: 100%;
-  border-color: #1E90FF !important;
+  border-color: #1e90ff !important;
   border-radius: 10px !important;
 }
- 
+
 .field-input.input-error {
   border-color: #e53935 !important;
 }
- 
+
 .error-msg {
   color: #e53935;
   font-size: 0.78rem;
   margin-top: 2px;
   display: block;
 }
- 
+
 .dialog-footer {
   display: flex;
   justify-content: flex-end;
@@ -52,52 +52,54 @@
   padding: 4px 0;
   margin-top: 20px;
 }
- 
+
 :host ::ng-deep .field-password .p-inputtext {
-  border-color: #1E90FF !important;
+  border-color: #1e90ff !important;
   border-radius: 10px !important;
   width: 100%;
 }
- 
+
 :host ::ng-deep .field-password.ng-invalid .p-inputtext {
   border-color: #e53935 !important;
 }
- 
+
 :host ::ng-deep .field-select {
   width: 100%;
-  border-color: #1E90FF !important;
+  border-color: #1e90ff !important;
   border-radius: 10px !important;
 }
- 
+
 :host ::ng-deep .p-button {
-  background-color: #B8860B !important;
-  border-color: #B8860B !important;
+  background-color: #b8860b !important;
+  border-color: #b8860b !important;
   color: darkblue !important;
   font-weight: bold !important;
 }
- 
+
 :host ::ng-deep .p-button:hover {
-  background-color: #8B6508 !important;
-  border-color: #8B6508 !important;
+  background-color: #8b6508 !important;
+  border-color: #8b6508 !important;
 }
- 
+
 :host ::ng-deep .p-button-secondary {
   background-color: #e0e0e0 !important;
   border-color: #e0e0e0 !important;
   color: #333 !important;
 }
- 
+
 :host ::ng-deep .p-button-secondary:hover {
   background-color: #bdbdbd !important;
   border-color: #bdbdbd !important;
 }
 
 :host ::ng-deep .p-password-toggle-mask-icon {
-  transition: color 0.2s, transform 0.2s;
+  transition:
+    color 0.2s,
+    transform 0.2s;
 }
 
 :host ::ng-deep .p-password-toggle-mask-icon:hover {
-  color: #6366f1;         
-  transform: scale(1.2);  
+  color: #6366f1;
+  transform: scale(1.2);
   cursor: pointer;
 }

@@ -1,0 +1,149 @@
+.partido-wrapper {
+  background-color: white;
+  border-radius: 26px;
+  height: calc(100vh - 80px);
+  width: calc(100% - 1rem);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 1rem;
+  box-sizing: border-box;
+  gap: 1rem;
+}
+
+.table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.table-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-crear {
+  background-color: #2e7d32 !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 20px;
+  height: 40px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-crear mat-icon {
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+}
+
+.btn-crear:hover {
+  background-color: #1b5e20 !important;
+}
+
+.search-wrapper {
+  flex-shrink: 0;
+}
+
+.search-field {
+  width: 100%;
+  max-width: 400px;
+}
+
+.table-container {
+  flex: 1;
+  overflow: auto;
+  border-radius: 12px;
+  min-height: 0;
+}
+
+.partidos-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: none;
+}
+
+.partidos-table .mat-mdc-row,
+.partidos-table .mat-mdc-header-row {
+  border-bottom: none !important;
+}
+
+.partidos-table .mat-mdc-cell,
+.partidos-table .mat-mdc-header-cell {
+  border-bottom: none !important;
+}
+
+.partidos-table .mat-mdc-header-cell {
+  background-color: #b8860b !important;
+  color: #003399 !important;
+  font-weight: 700 !important;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  padding: 12px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.partidos-table .mat-mdc-cell {
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #333;
+}
+
+.partidos-table .mat-mdc-row:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.partidos-table .mat-mdc-row:hover {
+  background-color: #f0f4ff;
+}
+
+.btn-editar {
+  color: #1565c0 !important;
+}
+
+.btn-editar:hover {
+  background-color: rgba(21, 101, 192, 0.1) !important;
+}
+
+.btn-eliminar {
+  color: #c62828 !important;
+}
+
+.btn-eliminar:hover {
+  background-color: rgba(198, 40, 40, 0.1) !important;
+}
+
+.no-data-row td {
+  text-align: center;
+  padding: 32px;
+  color: #888;
+  font-size: 14px;
+}
+
+.no-data-row mat-icon {
+  vertical-align: middle;
+  margin-right: 8px;
+  color: #aaa;
+}
+
+.equipo-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

@@ -1,38 +1,53 @@
-<p-dialog [(visible)]="visible" [modal]="true" [closable]="false" [style]="{ width: '380px', borderRadius: '20px' }"
-    [contentStyle]="{ padding: '0' }">
-
-    <ng-template pTemplate="header">
-        <div class="dialog-header">
-            <span class="dialog-title">EDITAR USUARIO</span>
-        </div>
-    </ng-template>
-
-    <div class="dialog-body">
-        <form [formGroup]="form">
-
-            <ng-container *ngIf="!esAdministrador">
-                <label class="field-label">Rol</label>
-                <p-select formControlName="idRol" [options]="roles" optionLabel="label" optionValue="value"
-                    placeholder="Selecciona un rol" styleClass="field-select" appendTo="body"
-                    [class.input-error]="isInvalid('idRol')">
-                </p-select>
-                <span class="error-msg" *ngIf="isInvalid('idRol')">Selecciona un rol</span>
-            </ng-container>
-            <label class="field-label">Estado</label>
-            <p-select formControlName="estado" [options]="estados" optionLabel="label" optionValue="value"
-                placeholder="Selecciona un estado" styleClass="field-select" appendTo="body"
-                [class.input-error]="isInvalid('estado')">
-            </p-select>
-            <span class="error-msg" *ngIf="isInvalid('estado')">Selecciona un estado</span>
-
-        </form>
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [closable]="false"
+  [style]="{ width: '380px', borderRadius: '20px' }"
+  [contentStyle]="{ padding: '0' }"
+>
+  <ng-template pTemplate="header">
+    <div class="dialog-header">
+      <span class="dialog-title">EDITAR USUARIO</span>
     </div>
+  </ng-template>
 
-    <ng-template pTemplate="footer">
-        <div class="dialog-footer">
-            <p-button label="Cancelar" severity="secondary" (onClick)="cancelar()"></p-button>
-            <p-button label="Guardar Cambios" (onClick)="onSubmit()" [disabled]="loading"></p-button>
-        </div>
-    </ng-template>
+  <div class="dialog-body">
+    <form [formGroup]="form">
+      <ng-container *ngIf="!esAdministrador">
+        <label class="field-label">Rol</label>
+        <p-select
+          formControlName="idRol"
+          [options]="roles"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Selecciona un rol"
+          styleClass="field-select"
+          appendTo="body"
+          [class.input-error]="isInvalid('idRol')"
+        >
+        </p-select>
+        <span class="error-msg" *ngIf="isInvalid('idRol')">Selecciona un rol</span>
+      </ng-container>
+      <label class="field-label">Estado</label>
+      <p-select
+        formControlName="estado"
+        [options]="estados"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Selecciona un estado"
+        styleClass="field-select"
+        appendTo="body"
+        [class.input-error]="isInvalid('estado')"
+      >
+      </p-select>
+      <span class="error-msg" *ngIf="isInvalid('estado')">Selecciona un estado</span>
+    </form>
+  </div>
 
+  <ng-template pTemplate="footer">
+    <div class="dialog-footer">
+      <p-button label="Cancelar" severity="secondary" (onClick)="cancelar()"></p-button>
+      <p-button label="Guardar Cambios" (onClick)="onSubmit()" [disabled]="loading"></p-button>
+    </div>
+  </ng-template>
 </p-dialog>

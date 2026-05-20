@@ -8,16 +8,11 @@ import { UsuarioEdicionAdministrador } from '../../../models/interface';
 
 @Component({
   selector: 'app-dialog-edit-usuario',
-  imports: [CommonModule,
-    ReactiveFormsModule,
-    DialogModule,
-    ButtonModule,
-    SelectModule,],
+  imports: [CommonModule, ReactiveFormsModule, DialogModule, ButtonModule, SelectModule],
   templateUrl: './dialog-edit-usuario.html',
   styleUrl: './dialog-edit-usuario.css',
 })
 export class DialogEditUsuario {
-
   visible = false;
   loading = false;
   idUsuario!: number;
@@ -37,9 +32,12 @@ export class DialogEditUsuario {
 
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {
+  constructor(
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef,
+  ) {
     this.form = this.fb.group({
-      idRol:  [null, Validators.required],
+      idRol: [null, Validators.required],
       estado: [null, Validators.required],
     });
   }
@@ -58,7 +56,7 @@ export class DialogEditUsuario {
     this.visible = true;
   }
 
-    cancelar(): void {
+  cancelar(): void {
     this.form.reset();
     this.visible = false;
   }
@@ -66,13 +64,13 @@ export class DialogEditUsuario {
   onSubmit(): void {
     this.form.markAllAsTouched();
     if (this.form.invalid) return;
- 
+
     this.loading = true;
     const payload: UsuarioEdicionAdministrador = {
-      idRol:  this.esAdministrador ? 1 : this.form.value.idRol,
+      idRol: this.esAdministrador ? 1 : this.form.value.idRol,
       estado: this.form.value.estado,
     };
- 
+
     this.usuarioEditado.emit({ id: this.idUsuario, data: payload });
   }
 

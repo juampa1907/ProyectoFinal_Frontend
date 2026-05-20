@@ -9,12 +9,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-dialog-alert',
   imports: [CommonModule, DialogModule, ButtonModule],
   template: `
-     <p-dialog 
-      [(visible)]="visible" 
-      [modal]="true" 
-      [closable]="false"
-      [style]="{ width: '350px' }">
-
+    <p-dialog [(visible)]="visible" [modal]="true" [closable]="false" [style]="{ width: '350px' }">
       <ng-template pTemplate="header">
         <span [class]="tipo === 'error' ? 'text-red-500 font-bold' : 'text-green-500 font-bold'">
           {{ tipo === 'error' ? '⚠️ Error' : '✅ Éxito' }}
@@ -24,15 +19,15 @@ import { Subscription } from 'rxjs';
       <p class="text-center mt-2">{{ mensaje }}</p>
 
       <ng-template pTemplate="footer">
-        <p-button 
-          label="Aceptar" 
+        <p-button
+          label="Aceptar"
           (onClick)="visible = false"
-          [severity]="tipo === 'error' ? 'danger' : 'success'">
+          [severity]="tipo === 'error' ? 'danger' : 'success'"
+        >
         </p-button>
       </ng-template>
-
     </p-dialog>
-  `
+  `,
 })
 export class DialogAlert implements OnInit {
   visible = false;
@@ -40,7 +35,10 @@ export class DialogAlert implements OnInit {
   tipo: 'error' | 'exito' = 'error';
   private suscripcion!: Subscription;
 
-  constructor(private dialogService: DialogService, private cdr: ChangeDetectorRef) { }
+  constructor(
+    private dialogService: DialogService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit() {
     this.suscripcion = this.dialogService.dialog$.subscribe((data) => {
@@ -51,7 +49,7 @@ export class DialogAlert implements OnInit {
     });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.suscripcion.unsubscribe();
   }
 }

@@ -1,127 +1,128 @@
 .login-wrapper {
-    background-image: url('/fondo5.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    min-width: 100vw;
-    overflow: hidden;
-    font-family: sans-serif;
+  background-image: url('/fondo5.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 100vw;
+  overflow: hidden;
+  font-family: sans-serif;
 }
 
 .login-card-border {
-    width: 30rem;
-    border-radius: 56px;
-    padding: 0.3rem;
-    background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);
+  width: 30rem;
+  border-radius: 56px;
+  padding: 0.3rem;
+  background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);
 }
 
 .login-card {
-    width: 100%;
-    padding: 5rem 2rem;
-    background-color: white;
-    border-radius: 20px;
-    position: relative;
-    overflow: hidden;
+  width: 100%;
+  padding: 5rem 2rem;
+  background-color: white;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
 }
 
 .login-header-img {
-    position: absolute;
-    top: 0;
-    left: 20%;
-    width: 60%;
-    height: 40%;
-    object-fit: cover;
-    z-index: 0;
-    border-radius: 53px 53px 0 0;
+  position: absolute;
+  top: 0;
+  left: 20%;
+  width: 60%;
+  height: 40%;
+  object-fit: cover;
+  z-index: 0;
+  border-radius: 53px 53px 0 0;
 }
 
 .login-header {
-    position: relative;
-    z-index: 1;
-    margin-top: 10rem;
-    text-align: center;
-    margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  margin-top: 10rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 .login-title {
-    font-family: sans-serif;
-    font-weight: bold;
-    font-size: 1.875rem;
-    color: darkblue;
-    -webkit-text-stroke: 2px lightgray;
-    paint-order: stroke fill;
-    margin-bottom: 0.5rem;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1.875rem;
+  color: darkblue;
+  -webkit-text-stroke: 2px lightgray;
+  paint-order: stroke fill;
+  margin-bottom: 0.5rem;
 }
 
 .login-subtitle {
-    font-family: sans-serif;
-    font-weight: bold;
-    color: darkblue;
-    -webkit-text-stroke: 2px lightgray;
-    paint-order: stroke fill;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: darkblue;
+  -webkit-text-stroke: 2px lightgray;
+  paint-order: stroke fill;
 }
 
 .login-label {
-    display: block;
-    font-family: sans-serif;
-    font-weight: bold;
-    font-size: 1.25rem;
-    color: darkblue;
+  display: block;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: darkblue;
 }
 
 :host ::ng-deep .link-span {
-    cursor: pointer;
-    display: inline-block;
-    transition: all 0.2s ease;
-    font-weight: 500;
-    margin-left: 6px;
+  cursor: pointer;
+  display: inline-block;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  margin-left: 6px;
 }
 
 :host ::ng-deep .link-span:hover {
-    text-decoration: underline;
-    opacity: 0.8;
-    color: #1E90FF;   /* mismo azul que usas en los inputs */
+  text-decoration: underline;
+  opacity: 0.8;
+  color: #1e90ff; /* mismo azul que usas en los inputs */
 }
 
 :host ::ng-deep .link-span:active {
-    opacity: 0.6;
-    transform: scale(0.98);
+  opacity: 0.6;
+  transform: scale(0.98);
 }
 
 :host ::ng-deep .p-inputtext {
-    border-color: #1E90FF !important;
-    border-radius: 12px !important;
+  border-color: #1e90ff !important;
+  border-radius: 12px !important;
 }
 
 :host ::ng-deep .p-inputtext:focus {
-    border-color: #00008B !important;
-    box-shadow: 0 0 0 2px rgba(30, 144, 255, 0.3) !important;
+  border-color: #00008b !important;
+  box-shadow: 0 0 0 2px rgba(30, 144, 255, 0.3) !important;
 }
 
 :host ::ng-deep .p-button {
-    background-color: #B8860B !important;
-    border-color: #B8860B !important;
-    color: darkblue !important;
-    font-weight: bold !important;
-    font-family: sans-serif !important;
+  background-color: #b8860b !important;
+  border-color: #b8860b !important;
+  color: darkblue !important;
+  font-weight: bold !important;
+  font-family: sans-serif !important;
 }
 
 :host ::ng-deep .p-button:hover {
-    background-color: #8B6508 !important;
-    border-color: #8B6508 !important;
+  background-color: #8b6508 !important;
+  border-color: #8b6508 !important;
 }
 
 :host ::ng-deep .p-password-toggle-mask-icon {
-    transition: color 0.2s, transform 0.2s;
+  transition:
+    color 0.2s,
+    transform 0.2s;
 }
 
 :host ::ng-deep .p-password-toggle-mask-icon:hover {
-    color: #6366f1;
-    transform: scale(1.2);
-    cursor: pointer;
+  color: #6366f1;
+  transform: scale(1.2);
+  cursor: pointer;
 }
-

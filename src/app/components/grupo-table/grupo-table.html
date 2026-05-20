@@ -1,0 +1,45 @@
+﻿<div class="grupo-wrapper">
+  <div class="grupo-grid">
+    @for (grupo of gruposData; track grupo.idGrupo) {
+      <div class="grupo-card">
+        <div class="grupo-card-header">
+          <span class="grupo-card-title">GRUPO {{ grupo.idGrupo }}</span>
+          <button
+            mat-icon-button
+            class="btn-editar-grupo"
+            (click)="dialogEditar.abrir(grupo.idGrupo, grupo.estado)"
+            matTooltip="Editar grupo"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+
+        <div class="grupo-card-body">
+          <table class="grupo-mini-table">
+            <tbody>
+              @for (equipo of getEquiposPorGrupo(grupo.idGrupo); track equipo.idEquipo) {
+                <tr>
+                  <td class="bandera-cell">
+                    <img [src]="equipo.bandera" [alt]="equipo.nombre" class="bandera-img" />
+                  </td>
+                  <td class="nombre-cell">{{ equipo.nombre }}</td>
+                </tr>
+              }
+              @if (getEquiposPorGrupo(grupo.idGrupo).length === 0) {
+                <tr>
+                  <td colspan="2" class="no-equipos">Sin equipos</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+  </div>
+
+  <app-dialog-edit-grupo
+    #dialogEditar
+    (grupoEditado)="onGrupoEditado($event)"
+  ></app-dialog-edit-grupo>
+  <app-dialog-alert></app-dialog-alert>
+</div>

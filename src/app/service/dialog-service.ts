@@ -8,12 +8,12 @@ export class DialogService {
   private dialogSubject = new Subject<{ mensaje: string; tipo: 'error' | 'exito' }>();
   dialog$ = this.dialogSubject.asObservable();
 
-  constructor(private zone: NgZone) { }
+  constructor(private zone: NgZone) {}
 
   mostrar(mensaje: string, tipo: 'error' | 'exito') {
     this.zone.run(() => {
       this.dialogSubject.next({ mensaje, tipo });
-    })
+    });
   }
 
   limpiar() {

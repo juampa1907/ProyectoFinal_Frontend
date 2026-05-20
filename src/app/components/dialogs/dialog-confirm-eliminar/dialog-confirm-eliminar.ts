@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { Subscription } from 'rxjs';
@@ -12,7 +19,6 @@ import { DialogConfirmService } from '../../../service/dialog-confirm-service';
   styleUrl: './dialog-confirm-eliminar.css',
 })
 export class DialogConfirmEliminar implements OnInit, OnDestroy {
-
   visible = false;
   loading = false;
   idUsuario!: number;
@@ -22,8 +28,8 @@ export class DialogConfirmEliminar implements OnInit, OnDestroy {
 
   constructor(
     private dialogConfirmService: DialogConfirmService,
-    private cdr: ChangeDetectorRef
-  ) { }
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit() {
     this.suscripcion = this.dialogConfirmService.abrir$.subscribe((id) => {

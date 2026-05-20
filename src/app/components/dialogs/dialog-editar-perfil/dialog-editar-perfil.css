@@ -42,7 +42,7 @@
 
 :host ::ng-deep .field-input {
   width: 100%;
-  border: 1px solid #1E90FF;
+  border: 1px solid #1e90ff;
   border-radius: 10px;
   padding: 8px 12px;
 }
@@ -54,26 +54,26 @@
 :host ::ng-deep .password-btn {
   margin-top: 16px;
   background-color: transparent !important;
-  border: 1px solid #1E90FF !important;
-  color: #1E90FF !important;
+  border: 1px solid #1e90ff !important;
+  color: #1e90ff !important;
   width: 100%;
 }
 
 :host ::ng-deep .password-btn:hover {
-  background-color: #1E90FF !important;
+  background-color: #1e90ff !important;
   color: white !important;
 }
 
 :host ::ng-deep .p-button {
-  background-color: #B8860B !important;
-  border-color: #B8860B !important;
+  background-color: #b8860b !important;
+  border-color: #b8860b !important;
   color: darkblue !important;
   font-weight: bold !important;
 }
 
 :host ::ng-deep .p-button:hover {
-  background-color: #8B6508 !important;
-  border-color: #8B6508 !important;
+  background-color: #8b6508 !important;
+  border-color: #8b6508 !important;
 }
 
 :host ::ng-deep .p-button-secondary {

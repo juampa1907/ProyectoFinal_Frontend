@@ -1,0 +1,105 @@
+﻿.grupo-wrapper {
+  background-color: white;
+  border-radius: 26px;
+  height: calc(100vh - 80px);
+  width: calc(100% - 1rem);
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.grupo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.grupo-card {
+  background-color: white;
+  border-radius: 16px;
+  border: 1.5px solid transparent;
+  background-clip: padding-box;
+  outline: 1.5px solid #b8860b;
+  outline-offset: -1px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.grupo-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: linear-gradient(135deg, #b8860b, #f5d060);
+}
+
+.grupo-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000000;
+  letter-spacing: 0.5px;
+}
+
+.btn-editar-grupo {
+  color: #000000 !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-editar-grupo:hover {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  transform: scale(1.1);
+  border-radius: 50px;
+}
+
+.btn-editar-grupo:active {
+  transform: scale(0.95);
+}
+
+.grupo-card-body {
+  padding: 8px;
+  flex: 1;
+  min-height: 0;
+}
+
+.grupo-mini-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.grupo-mini-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.grupo-mini-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.grupo-mini-table tbody tr:hover {
+  background-color: #f0f4ff;
+}
+
+.bandera-cell {
+  width: 40px;
+  padding: 6px 8px;
+}
+
+.bandera-img {
+  object-fit: cover;
+}
+
+.nombre-cell {
+  padding: 6px 8px;
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.no-equipos {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+  font-size: 14px;
+}

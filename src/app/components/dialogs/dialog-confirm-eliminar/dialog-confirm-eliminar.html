@@ -1,9 +1,4 @@
-<p-dialog
-  [(visible)]="visible"
-  [modal]="true"
-  [closable]="false"
-  [style]="{ width: '400px' }">
-
+<p-dialog [(visible)]="visible" [modal]="true" [closable]="false" [style]="{ width: '400px' }">
   <ng-template pTemplate="header">
     <div class="dialog-header">
       <span class="dialog-title">⚠️ ELIMINAR USUARIO</span>
@@ -22,16 +17,17 @@
         severity="secondary"
         icon="pi pi-times"
         (onClick)="cancelar()"
-        [disabled]="loading">
+        [disabled]="loading"
+      >
       </p-button>
       <p-button
         label="Eliminar definitivamente"
         severity="danger"
         icon="pi pi-trash"
         (onClick)="eliminar()"
-        [loading]="loading">
+        [loading]="loading"
+      >
       </p-button>
     </div>
   </ng-template>
-
 </p-dialog>

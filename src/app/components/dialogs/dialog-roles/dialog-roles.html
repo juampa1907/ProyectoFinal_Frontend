@@ -1,0 +1,60 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [closable]="true"
+  [style]="{ width: '600px', borderRadius: '20px' }"
+  [contentStyle]="{ padding: '0' }"
+>
+  <ng-template pTemplate="header">
+    <div class="dialog-header">
+      <span class="dialog-title">GESTIÓN DE ROLES</span>
+    </div>
+  </ng-template>
+
+  <div class="table-container">
+    <table mat-table [dataSource]="roles" class="roles-table">
+      <ng-container matColumnDef="idRol">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let rol">{{ rol.idRol }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="nombreRol">
+        <th mat-header-cell *matHeaderCellDef>NOMBRE</th>
+        <td mat-cell *matCellDef="let rol">{{ rol.nombreRol }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>ESTADO</th>
+        <td mat-cell *matCellDef="let rol">
+          <span [class.estado-activo]="rol.estado === 'A'" [class.estado-inactivo]="rol.estado === 'I'">
+            {{ rol.estado === 'A' ? 'ACTIVO' : 'INACTIVO' }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="editar">
+        <th mat-header-cell *matHeaderCellDef>EDITAR</th>
+        <td mat-cell *matCellDef="let rol">
+          <button
+            mat-icon-button
+            class="btn-editar"
+            [matTooltip]="rol.estado === 'A' ? 'Desactivar rol' : 'Activar rol'"
+            (click)="toggleEstado(rol)"
+            *ngIf="rol.nombreRol !== 'Administrador'"
+          >
+            <mat-icon>{{ rol.estado === 'A' ? 'toggle_on' : 'toggle_off' }}</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="dialog-footer">
+      <p-button label="Cerrar" severity="secondary" (onClick)="cerrar()"></p-button>
+    </div>
+  </ng-template>
+</p-dialog>

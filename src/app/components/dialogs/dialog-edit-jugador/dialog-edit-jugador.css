@@ -1,0 +1,77 @@
+.dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+.dialog-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: darkblue;
+  letter-spacing: 0.5px;
+}
+
+.dialog-body {
+  padding: 8px 24px 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.field-label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: darkblue;
+  margin-top: 20px;
+  margin-bottom: 4px;
+}
+
+.error-msg {
+  color: #e53935;
+  font-size: 0.78rem;
+  margin-top: 2px;
+  display: block;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 4px 0;
+  margin-top: 20px;
+}
+
+:host ::ng-deep .field-select {
+  width: 100%;
+  border-color: #1e90ff !important;
+  border-radius: 10px !important;
+}
+
+:host ::ng-deep .field-select.input-error {
+  border-color: #e53935 !important;
+}
+
+:host ::ng-deep .p-button {
+  background-color: #b8860b !important;
+  border-color: #b8860b !important;
+  color: darkblue !important;
+  font-weight: bold !important;
+}
+
+:host ::ng-deep .p-button:hover {
+  background-color: #8b6508 !important;
+  border-color: #8b6508 !important;
+}
+
+:host ::ng-deep .p-button-secondary {
+  background-color: #e0e0e0 !important;
+  border-color: #e0e0e0 !important;
+  color: #333 !important;
+}
+
+:host ::ng-deep .p-button-secondary:hover {
+  background-color: #bdbdbd !important;
+  border-color: #bdbdbd !important;
+}

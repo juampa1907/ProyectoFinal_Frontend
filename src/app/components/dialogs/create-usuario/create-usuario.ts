@@ -1,6 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -64,14 +71,15 @@ function correoValido(control: AbstractControl): ValidationErrors | null {
 
 @Component({
   selector: 'app-create-usuario',
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     ReactiveFormsModule,
     DialogModule,
     ButtonModule,
     InputTextModule,
     PasswordModule,
     SelectModule,
-    ],
+  ],
   templateUrl: './create-usuario.html',
   styleUrl: './create-usuario.css',
 })
@@ -89,15 +97,16 @@ export class CreateUsuario {
   form: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this.form = this.fb.group(
-      {
-        nombreApellido: ['', [Validators.required, Validators.minLength(6), nombreApellidoValido]],
-        username: ['', [Validators.required, Validators.minLength(3), usuarioValido]],
-        correo: ['', [Validators.required, Validators.email, correoValido]],
-        idRol: [null, Validators.required],
-        password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(8), passwordSegura]],
-      },
-    );
+    this.form = this.fb.group({
+      nombreApellido: ['', [Validators.required, Validators.minLength(6), nombreApellidoValido]],
+      username: ['', [Validators.required, Validators.minLength(3), usuarioValido]],
+      correo: ['', [Validators.required, Validators.email, correoValido]],
+      idRol: [null, Validators.required],
+      password: [
+        '',
+        [Validators.required, Validators.minLength(6), Validators.maxLength(8), passwordSegura],
+      ],
+    });
   }
 
   isInvalid(campo: string): boolean {

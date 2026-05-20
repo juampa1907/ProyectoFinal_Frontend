@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Usuario } from '../../models/usuario';
 import { UsuarioService } from '../../service/usuario-service';
+import { DashboardDataService } from '../../service/dashboard-service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,36 +9,73 @@ import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { CreateUsuario } from "../dialogs/create-usuario/create-usuario";
-import { DialogEditUsuario } from "../dialogs/dialog-edit-usuario/dialog-edit-usuario";
+import { CreateUsuario } from '../dialogs/create-usuario/create-usuario';
+import { DialogEditUsuario } from '../dialogs/dialog-edit-usuario/dialog-edit-usuario';
 import { DialogConfirmEliminar } from '../dialogs/dialog-confirm-eliminar/dialog-confirm-eliminar';
 import { DialogConfirmService } from '../../service/dialog-confirm-service';
 import { DialogService } from '../../service/dialog-service';
 import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
+import { DialogRoles } from '../dialogs/dialog-roles/dialog-roles';
 import { PerfilService } from '../../service/perfil-service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-usuario-table',
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     MatTableModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatTooltipModule, CreateUsuario, DialogEditUsuario, DialogConfirmEliminar, DialogAlert],
+    MatTooltipModule,
+    CreateUsuario,
+    DialogEditUsuario,
+    DialogConfirmEliminar,
+    DialogAlert,
+    DialogRoles,
+  ],
   templateUrl: './usuario-table.html',
   styleUrl: './usuario-table.css',
 })
 export class UsuarioTable implements OnInit {
-
   usuarios = new MatTableDataSource<Usuario>([]);
-  displayedColumns: string[] = ['idUsuario', 'username', 'correo', 'nombreApellido', 'idRol', 'estado', 'fechaUltClave', 'editar', 'eliminar'];
+  displayedColumns: string[] = [
+    'idUsuario',
+    'username',
+    'correo',
+    'nombreApellido',
+    'idRol',
+    'estado',
+    'fechaUltClave',
+    'editar',
+    'eliminar',
+  ];
   private perfilSubscription!: Subscription;
 
-  constructor(private usuarioService: UsuarioService, private cdr: ChangeDetectorRef, public dialogConfirmService: DialogConfirmService, private dialogService: DialogService, private perfilService: PerfilService) { }
+  constructor(
+    private usuarioService: UsuarioService,
+    private dashboardService: DashboardDataService,
+    private cdr: ChangeDetectorRef,
+    public dialogConfirmService: DialogConfirmService,
+    private dialogService: DialogService,
+    private perfilService: PerfilService,
+  ) {}
 
   ngOnInit(): void {
+    this.usuarios.filterPredicate = (data: Usuario, filter: string) => {
+      const rolNombre = this.getRolNombre(data.idRol).toLowerCase();
+      const searchText = filter.toLowerCase();
+      return (
+        data.idUsuario.toString().includes(searchText) ||
+        data.username.toLowerCase().includes(searchText) ||
+        data.correo.toLowerCase().includes(searchText) ||
+        data.nombreApellido.toLowerCase().includes(searchText) ||
+        rolNombre.includes(searchText) ||
+        data.estado.toLowerCase().includes(searchText) ||
+        data.fechaUltClave.toLowerCase().includes(searchText)
+      );
+    };
     this.listUsuarios();
     this.perfilSubscription = this.perfilService.perfilActualizado$.subscribe(() => {
       this.listUsuarios();
@@ -59,7 +97,7 @@ export class UsuarioTable implements OnInit {
       },
       error: (err) => {
         console.error('ERROR:', err);
-      }
+      },
     });
   }
 
@@ -70,18 +108,25 @@ export class UsuarioTable implements OnInit {
 
   getRolNombre(idRol: number): string {
     switch (idRol) {
-      case 1: return 'Administrador';
-      case 2: return 'Usuario';
-      case 3: return 'Operario';
-      default: return 'Sin rol';
+      case 1:
+        return 'Administrador';
+      case 2:
+        return 'Usuario';
+      case 3:
+        return 'Operario';
+      default:
+        return 'Sin rol';
     }
   }
 
   getEstadoNombre(estado: string): string {
     switch (estado) {
-      case 'A': return 'ACTIVO';
-      case 'I': return 'INACTIVO';
-      default: return 'desconocido';
+      case 'A':
+        return 'ACTIVO';
+      case 'I':
+        return 'INACTIVO';
+      default:
+        return 'desconocido';
     }
   }
 
@@ -97,25 +142,25 @@ export class UsuarioTable implements OnInit {
   }
 
   @ViewChild('dialogCrear') dialogCrear!: CreateUsuario;
+  @ViewChild('dialogRoles') dialogRoles!: DialogRoles;
 
   onUsuarioCreado(payload: any): void {
     this.usuarioService.saveUsuario(payload).subscribe({
       next: () => {
         this.dialogCrear.cerrarConExito();
-        this.listUsuarios(); // refresca la tabla
+        this.listUsuarios();
+        this.dashboardService.cargar();
       },
       error: () => {
         this.dialogCrear.cerrarConError();
-      }
+      },
     });
   }
 
   @ViewChild('dialogEditar') dialogEditar!: DialogEditUsuario;
 
   onUsuarioEditado(event: { id: number; data: any }): void {
-    console.log('event.id tipo:', typeof event.id, 'valor:', event.id);
-    console.log('primer idUsuario tipo:', typeof this.usuarios.data[0]?.idUsuario, 'valor:', this.usuarios.data[0]?.idUsuario);
-    const usuarioOriginal = this.usuarios.data.find(u => u.idUsuario === event.id);
+    const usuarioOriginal = this.usuarios.data.find((u) => u.idUsuario === event.id);
     if (!usuarioOriginal) return;
 
     const payload = {
@@ -132,10 +177,11 @@ export class UsuarioTable implements OnInit {
       next: () => {
         this.dialogEditar.cerrarConExito();
         this.listUsuarios();
+        this.dashboardService.cargar();
       },
       error: () => {
         this.dialogEditar.cerrarConError();
-      }
+      },
     });
   }
 
@@ -147,11 +193,12 @@ export class UsuarioTable implements OnInit {
         this.dialogConfirm.cerrarConExito();
         this.dialogService.mostrar('Usuario eliminado correctamente', 'exito');
         this.listUsuarios();
+        this.dashboardService.cargar();
       },
       error: () => {
         this.dialogConfirm.cerrarConError();
         this.dialogService.mostrar('Ocurrió un error al eliminar el usuario', 'error');
-      }
+      },
     });
   }
 

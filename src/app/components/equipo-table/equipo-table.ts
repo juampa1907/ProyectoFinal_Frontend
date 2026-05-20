@@ -60,7 +60,7 @@ export class EquipoTable implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('ERROR:', err);
+        // error handled silently
       },
     });
   }

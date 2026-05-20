@@ -118,6 +118,6 @@ export class SidenavAdmin {
   }
 
   onPerfilEditado(usuario: any): void {
-    console.log('Perfil actualizado:', usuario);
+    // debug removed
   }
 }

@@ -45,7 +45,7 @@ export class DialogRoles {
         this.rolActualizado.emit();
       },
       error: (err) => {
-        console.error('ERROR al cambiar estado:', err);
+        // error handled silently
       },
     });
   }
@@ -57,7 +57,7 @@ export class DialogRoles {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('ERROR:', err);
+        // error handled silently
       },
     });
   }

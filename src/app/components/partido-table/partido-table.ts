@@ -89,7 +89,7 @@ export class PartidoTable implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('ERROR:', err);
+        // error handled silently
       },
     });
   }
@@ -101,7 +101,7 @@ export class PartidoTable implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('ERROR:', err);
+        // error handled silently
       },
     });
   }
@@ -174,7 +174,7 @@ export class PartidoTable implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Error al crear partido:', err);
+        // error handled silently
         this.dialogCrear.cerrarConError();
         this.dialogService.mostrar(
           err.status === 0
@@ -209,7 +209,7 @@ export class PartidoTable implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Error al actualizar partido:', err);
+        // error handled silently
         this.dialogEditar.cerrarConError();
         this.dialogService.mostrar(
           err.status === 0
@@ -233,7 +233,7 @@ export class PartidoTable implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Error al eliminar partido:', err);
+        // error handled silently
         this.dialogConfirm.cerrarConError();
         this.dialogService.mostrar(
           err.status === 0

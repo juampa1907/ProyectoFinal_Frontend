@@ -38,7 +38,7 @@ export class GrupoTable implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('ERROR:', err);
+        // error handled silently
       },
     });
   }
@@ -50,7 +50,7 @@ export class GrupoTable implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('ERROR:', err);
+        // error handled silently
       },
     });
   }
@@ -81,16 +81,16 @@ export class GrupoTable implements OnInit {
 
     this.grupoService.putGrupo(payload).subscribe({
       next: (response) => {
-        console.log('Respuesta del backend:', response);
+        // debug removed
         this.dialogEditar.cerrarConExito();
         this.dialogService.mostrar('Grupo actualizado correctamente', 'exito');
         this.listGrupos();
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Error completo al actualizar grupo:', err);
-        console.error('Status:', err.status);
-        console.error('Error body:', err.error);
+        // error handled silently
+        // error handled silently
+        // error handled silently
         this.dialogEditar.cerrarConError();
         this.dialogService.mostrar(
           err.status === 0

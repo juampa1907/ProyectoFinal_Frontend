@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Usuario } from '../../models/usuario';
 import { UsuarioService } from '../../service/usuario-service';
 import { DashboardDataService } from '../../service/dashboard-service';
@@ -38,7 +38,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './usuario-table.html',
   styleUrl: './usuario-table.css',
 })
-export class UsuarioTable implements OnInit {
+export class UsuarioTable implements OnInit, OnDestroy {
   usuarios = new MatTableDataSource<Usuario>([]);
   displayedColumns: string[] = [
     'idUsuario',

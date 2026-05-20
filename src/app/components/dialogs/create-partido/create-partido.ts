@@ -91,7 +91,7 @@ export class CreatePartido implements OnInit {
         this.equipos = data;
       },
       error: (err) => {
-        console.error('Error al cargar equipos:', err);
+        // error handled silently
       },
     });
   }

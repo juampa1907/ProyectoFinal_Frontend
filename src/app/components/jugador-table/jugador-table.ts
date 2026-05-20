@@ -74,7 +74,7 @@ export class JugadorTable implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('ERROR:', err);
+        // error handled silently
       },
     });
   }
@@ -86,7 +86,7 @@ export class JugadorTable implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('ERROR:', err);
+        // error handled silently
       },
     });
   }
@@ -150,7 +150,7 @@ export class JugadorTable implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Error al actualizar jugador:', err);
+        // error handled silently
         this.dialogEditar.cerrarConError();
         this.dialogService.mostrar(
           err.status === 0

@@ -133,7 +133,7 @@ export class DialogEditarPerfil implements OnInit {
         this.visible = false;
       },
       error: (error) => {
-        console.error('Error al actualizar perfil:', error);
+        // error handled silently
         const mensaje = error?.error?.message || 'Error del servidor, intente más tarde';
         this.dialogService.mostrar(mensaje, 'error');
         this.loading.set(false);

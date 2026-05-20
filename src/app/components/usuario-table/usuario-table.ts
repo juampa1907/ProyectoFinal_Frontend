@@ -44,8 +44,8 @@ export class UsuarioTable implements OnInit {
         this.usuarios.data = data;
         this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.error('ERROR:', err);
+      error: () => {
+        this.dialogService.mostrar('Error al cargar la lista de usuarios', 'error');
       }
     });
   }
@@ -100,8 +100,6 @@ export class UsuarioTable implements OnInit {
   @ViewChild('dialogEditar') dialogEditar!: DialogEditUsuario;
 
   onUsuarioEditado(event: { id: number; data: any }): void {
-    console.log('event.id tipo:', typeof event.id, 'valor:', event.id);
-    console.log('primer idUsuario tipo:', typeof this.usuarios.data[0]?.idUsuario, 'valor:', this.usuarios.data[0]?.idUsuario);
     const usuarioOriginal = this.usuarios.data.find(u => u.idUsuario === event.id);
     if (!usuarioOriginal) return;
 

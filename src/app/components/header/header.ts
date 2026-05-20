@@ -70,6 +70,7 @@ export class Header {
 
   private router = inject(Router);
   logout(){
+    sessionStorage.removeItem('usuarioLogueado');
     this.onLogout.emit();
     this.router.navigate(['/login']);
   }

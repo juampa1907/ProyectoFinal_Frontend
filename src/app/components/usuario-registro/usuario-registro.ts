@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, FormsModule, MaxLengthValidator, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -63,6 +63,14 @@ function usuarioValido(control: AbstractControl): ValidationErrors | null {
   return null;
 }
 
+function correoValido(control: AbstractControl): ValidationErrors | null {
+  const valor = control.value;
+  if (!valor) return null;
+  if (/\s/.test(valor)) return { conEspacio: true };
+  if (/[A-Z]/.test(valor)) return { conMayuscula: true };
+  return null;
+}
+
 function nombreApellidoValido(control: AbstractControl): ValidationErrors | null {
   const valor = control.value
   if(!valor) return null;
@@ -105,6 +113,7 @@ export class UsuarioRegistro {
     this.registroForm = this.fb.group({
       nombreApellido: ['', [Validators.required, Validators.minLength(6), nombreApellidoValido]],
       username: ['', [Validators.required, Validators.minLength(3), usuarioValido]],
+      correo: ['', [Validators.required, Validators.email, correoValido]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(8), passwordSegura]],
       confirmarPassword: ['', [Validators.required]]
     }, { validators: passwordsIguales });
@@ -134,6 +143,10 @@ export class UsuarioRegistro {
         this.dialogService.mostrar('El usuario debe tener al menos 1 letra', 'error');
       } else if (f.get('username')?.hasError('conEspacio')) {
         this.dialogService.mostrar('El usuario no puede tener espacios', 'error');
+      } else if (f.get('correo')?.hasError('required')) {
+        this.dialogService.mostrar('El correo electrónico es requerido', 'error');
+      } else if (f.get('correo')?.hasError('email') || f.get('correo')?.hasError('conEspacio') || f.get('correo')?.hasError('conMayuscula')) {
+        this.dialogService.mostrar('Ingresa un correo electrónico válido (sin mayúsculas ni espacios)', 'error');
       } else if (f.get('password')?.hasError('required')) {
         this.dialogService.mostrar('La contraseña es requerida', 'error');
       } else if (f.get('password')?.hasError('minlength')) {
@@ -159,10 +172,10 @@ export class UsuarioRegistro {
     this.loading = true;
 
     const nuevoUsuario = {
-      username: this.registroForm.value.username,
-      password: this.registroForm.value.password,
-      correo: this.registroForm.value.correo,
       nombreApellido: this.registroForm.value.nombreApellido,
+      username: this.registroForm.value.username,
+      correo: this.registroForm.value.correo,
+      password: this.registroForm.value.password,
       idRol: 2
     };
 

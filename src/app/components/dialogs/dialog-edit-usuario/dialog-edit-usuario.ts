@@ -85,6 +85,6 @@ export class DialogEditUsuario {
 
   cerrarConError(): void {
     this.loading = false;
-    this.cdr.detectChanges;
+    this.cdr.detectChanges();
   }
 }

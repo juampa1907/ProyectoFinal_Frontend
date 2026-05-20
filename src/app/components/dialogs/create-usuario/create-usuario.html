@@ -36,8 +36,8 @@
                 [class.input-error]="isInvalid('correo')" />
             <span class="error-msg" *ngIf="hasError('correo', 'required')">Campo requerido</span>
             <span class="error-msg" *ngIf="hasError('correo', 'email')">Formato de correo inválido</span>
-            <span class="error-msg" *ngIf="hasError('correo', 'tieneEspacio')">Formato de correo inválido</span>
-            <span class="error-msg" *ngIf="hasError('correo', 'tieneMayuscula')">Formato de correo inválido</span>
+            <span class="error-msg" *ngIf="hasError('correo', 'conEspacio')">Formato de correo inválido</span>
+            <span class="error-msg" *ngIf="hasError('correo', 'conMayuscula')">El correo no puede contener mayúsculas</span>
 
             <label class="field-label">Rol</label>
             <p-select formControlName="idRol" [options]="roles"

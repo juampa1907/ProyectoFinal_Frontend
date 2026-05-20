@@ -38,12 +38,15 @@ export class UsuarioLogin {
         const usernameVacio = this.loginForm.get('username')?.hasError('required');
         const passwordVacio = this.loginForm.get('password')?.hasError('required');
 
-       if (usernameVacio && passwordVacio) {
+        const passwordCorta = this.loginForm.get('password')?.hasError('minlength');
+        if (usernameVacio && passwordVacio) {
           this.dialogService.mostrar('El usuario y la contraseña son requeridos', 'error');
         } else if (usernameVacio) {
-         this.dialogService.mostrar('El campo usuario es requerido', 'error');
+          this.dialogService.mostrar('El campo usuario es requerido', 'error');
         } else if (passwordVacio) {
           this.dialogService.mostrar('El campo contraseña es requerido', 'error');
+        } else if (passwordCorta) {
+          this.dialogService.mostrar('La contraseña debe tener al menos 6 caracteres', 'error');
         }
         return;
       }

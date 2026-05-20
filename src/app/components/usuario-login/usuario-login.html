@@ -30,9 +30,9 @@
                         <input pInputText id="username" type="text" placeholder="Nombre de Usuario" formControlName="username" class="w-full mb-2" [class.ng-invalid]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"/>
 
                         <label for="password" class="login-label mb-2">Contraseña</label>
-                        <p-password id="password" placeholder="Contraseña" formControlName="password" [toggleMask]="true" styleClass="mb-4 loginForm.get('password')?.invalid
-                        && loginForm.get('password')?.touched
-                        ? 'ng-invalid ng-dirty' : ''" [fluid]="true" [feedback]="false"></p-password>
+                        <p-password id="password" placeholder="Contraseña" formControlName="password" [toggleMask]="true"
+                            [styleClass]="(loginForm.get('password')?.invalid && loginForm.get('password')?.touched) ? 'ng-invalid ng-dirty' : ''"
+                            [fluid]="true" [feedback]="false"></p-password>
 
                         <div class="flex items-center justify-between mt-2 mb-4 gap-8">
                         <div class="flex items-center"></div>

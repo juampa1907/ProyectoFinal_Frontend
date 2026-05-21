@@ -1,0 +1,51 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [closable]="false"
+  [style]="{ width: '420px', borderRadius: '20px' }"
+  [contentStyle]="{ padding: '0' }"
+>
+  <ng-template pTemplate="header">
+    <div class="dialog-header">
+      <span class="dialog-title">EDITAR AUDITORÍA</span>
+    </div>
+  </ng-template>
+
+  <div class="dialog-body">
+    <form [formGroup]="form">
+      <label class="field-label">Acción</label>
+      <input
+        pInputText
+        formControlName="accion"
+        class="field-input"
+        [class.input-error]="isInvalid('accion')"
+      />
+      <span class="error-msg" *ngIf="isInvalid('accion')">Campo requerido</span>
+
+      <label class="field-label">Tabla Afectada</label>
+      <input
+        pInputText
+        formControlName="tablaAfectada"
+        class="field-input"
+        [class.input-error]="isInvalid('tablaAfectada')"
+      />
+      <span class="error-msg" *ngIf="isInvalid('tablaAfectada')">Campo requerido</span>
+
+      <label class="field-label">IP Cliente</label>
+      <input
+        pInputText
+        formControlName="ipCliente"
+        class="field-input"
+        [class.input-error]="isInvalid('ipCliente')"
+      />
+      <span class="error-msg" *ngIf="isInvalid('ipCliente')">Campo requerido</span>
+    </form>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="dialog-footer">
+      <p-button label="Cancelar" severity="secondary" (onClick)="cancelar()"></p-button>
+      <p-button label="Guardar Cambios" (onClick)="onSubmit()" [disabled]="loading"></p-button>
+    </div>
+  </ng-template>
+</p-dialog>

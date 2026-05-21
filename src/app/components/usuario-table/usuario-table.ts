@@ -95,9 +95,6 @@ export class UsuarioTable implements OnInit, OnDestroy {
         this.usuarios.data = data;
         this.cdr.detectChanges();
       },
-      error: () => {
-        this.dialogService.mostrar('Error al cargar la lista de usuarios', 'error');
-      },
     });
   }
 

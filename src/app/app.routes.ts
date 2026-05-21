@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './guards/auth.guard';
 import { UsuarioLogin } from './components/usuario-login/usuario-login';
 import { UsuarioRegistro } from './components/usuario-registro/usuario-registro';
 import { Auditoria } from './components/auditoria/auditoria';
@@ -18,7 +17,6 @@ export const routes: Routes = [
   {
     path: '',
     component: SidenavAdmin,
-    canActivate: [authGuard],
     children: [
       { path: 'dashboard', component: Auditoria },
       { path: 'usuarios', component: UsuarioTable },

@@ -43,28 +43,33 @@
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div>
             <label for="username" class="login-label mb-2">Usuario</label>
-            <input
-              pInputText
-              id="username"
-              type="text"
-              placeholder="Nombre de Usuario"
-              formControlName="username"
-              class="w-full mb-2"
-              [class.ng-invalid]="
-                loginForm.get('username')?.invalid && loginForm.get('username')?.touched
-              "
-            />
+            <div class="mb-4">
+              <input
+                pInputText
+                id="username"
+                type="text"
+                placeholder="Nombre de Usuario"
+                formControlName="username"
+                class="w-full"
+                [class.input-error]="isInvalid('username')"
+              />
+              <span class="error-msg" *ngIf="hasError('username', 'required')">Campo requerido</span>
+            </div>
 
             <label for="password" class="login-label mb-2">Contraseña</label>
-            <p-password
-              id="password"
-              placeholder="Contraseña"
-              formControlName="password"
-              [toggleMask]="true"
-              [styleClass]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched ? 'mb-4 ng-invalid ng-dirty' : 'mb-4'"
-              [fluid]="true"
-              [feedback]="false"
-            ></p-password>
+            <div class="mb-4">
+              <p-password
+                id="password"
+                placeholder="Contraseña"
+                formControlName="password"
+                [toggleMask]="true"
+                [styleClass]="isInvalid('password') ? 'field-password ng-invalid ng-dirty' : 'field-password'"
+                [fluid]="true"
+                [feedback]="false"
+              ></p-password>
+              <span class="error-msg" *ngIf="hasError('password', 'required')">Campo requerido</span>
+              <span class="error-msg" *ngIf="hasError('password', 'minlength')">Mínimo 6 caracteres</span>
+            </div>
 
             <div class="flex items-center justify-between mt-2 mb-4 gap-8">
               <div class="flex items-center"></div>

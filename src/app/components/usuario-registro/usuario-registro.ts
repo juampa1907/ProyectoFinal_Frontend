@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -15,7 +15,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
+import { DialogCodigoVerificacion } from '../dialogs/dialog-codigo-verificacion/dialog-codigo-verificacion';
 import { UsuarioService } from '../../service/usuario-service';
+import { UsuarioCreacion } from '../../models/interface';
 import { DialogService } from '../../service/dialog-service';
 
 function passwordsIguales(control: AbstractControl): ValidationErrors | null {
@@ -113,13 +115,26 @@ function correoValido(control: AbstractControl): ValidationErrors | null {
     RippleModule,
     ReactiveFormsModule,
     DialogAlert,
+    DialogCodigoVerificacion,
   ],
   templateUrl: './usuario-registro.html',
   styleUrl: './usuario-registro.css',
 })
 export class UsuarioRegistro {
+  @ViewChild(DialogCodigoVerificacion) codigoDialog!: DialogCodigoVerificacion;
+
   registroForm!: FormGroup;
-  loading: boolean = false;
+  loading = signal(false);
+
+  isInvalid(campo: string): boolean {
+    const control = this.registroForm.get(campo);
+    return !!(control?.invalid && control?.touched);
+  }
+
+  hasError(campo: string, error: string): boolean {
+    const control = this.registroForm.get(campo);
+    return !!(control?.hasError(error) && control?.touched);
+  }
 
   irAlLogin(): void {
     this.router.navigate(['/login']);
@@ -146,93 +161,54 @@ export class UsuarioRegistro {
     );
   }
 
-  onSubmit(): void {
-    if (this.registroForm.invalid) {
-      this.registroForm.markAllAsTouched();
-
-      const f = this.registroForm;
-
-      if (f.get('nombreApellido')?.hasError('required')) {
-        this.dialogService.mostrar('El nombre y apellido es requerido', 'error');
-      } else if (f.get('nombreApellido')?.hasError('conNumero')) {
-        this.dialogService.mostrar('El campo nombre y apellido no puede tener números', 'error');
-      } else if (f.get('nombreApellido')?.hasError('conCaracter')) {
-        this.dialogService.mostrar(
-          'El campo nombre y apellido no puede tener caracteres especiales',
-          'error',
-        );
-      } else if (f.get('nombreApellido')?.hasError('minlength')) {
-        this.dialogService.mostrar('El nombre debe tener al menos 6 caracteres', 'error');
-      } else if (f.get('username')?.hasError('required')) {
-        this.dialogService.mostrar('El usuario es requerido', 'error');
-      } else if (f.get('username')?.hasError('minlength')) {
-        this.dialogService.mostrar('El usuario debe tener al menos 3 caracteres', 'error');
-      } else if (f.get('username')?.hasError('sinNumero')) {
-        this.dialogService.mostrar('El usuario debe tener al menos 1 número', 'error');
-      } else if (f.get('username')?.hasError('sinLetra')) {
-        this.dialogService.mostrar('El usuario debe tener al menos 1 letra', 'error');
-      } else if (f.get('username')?.hasError('conEspacio')) {
-        this.dialogService.mostrar('El usuario no puede tener espacios', 'error');
-      } else if (f.get('correo')?.hasError('required')) {
-        this.dialogService.mostrar('El correo electronico es requerido', 'error');
-      } else if (f.get('correo')?.hasError('email')) {
-        this.dialogService.mostrar('Introduzca un formato de correo valido', 'error');
-      } else if (f.get('correo')?.hasError('conEspacio')) {
-        this.dialogService.mostrar('Introduzca un formato de correo valido', 'error');
-      } else if (f.get('correo')?.hasError('conMayuscula')) {
-        this.dialogService.mostrar('Introduzca un formato de correo valido', 'error');
-      } else if (f.get('password')?.hasError('required')) {
-        this.dialogService.mostrar('La contraseña es requerida', 'error');
-      } else if (f.get('password')?.hasError('minlength')) {
-        this.dialogService.mostrar('La contraseña debe tener al menos 6 caracteres', 'error');
-      } else if (f.get('password')?.hasError('maxlength')) {
-        this.dialogService.mostrar('La contraseña debe tener por mucho 8 caracteres', 'error');
-      } else if (f.get('password')?.hasError('sinMayuscula')) {
-        this.dialogService.mostrar(
-          'La contraseña debe tener al menos una letra mayúscula',
-          'error',
-        );
-      } else if (f.get('password')?.hasError('sinMinuscula')) {
-        this.dialogService.mostrar(
-          'La contraseña debe tener al menos una letra minúscula',
-          'error',
-        );
-      } else if (f.get('password')?.hasError('sinNumero')) {
-        this.dialogService.mostrar('La contraseña debe tener al menos un numero', 'error');
-      } else if (f.get('password')?.hasError('conEspacio')) {
-        this.dialogService.mostrar('La contraseña no debe tener espacios', 'error');
-      } else if (f.get('confirmarPassword')?.hasError('required')) {
-        this.dialogService.mostrar('Debes confirmar tu contraseña', 'error');
-      } else if (f.hasError('noCoinciden')) {
-        this.dialogService.mostrar('Las contraseñas no coinciden', 'error');
-      }
-      return;
-    }
-
-    this.loading = true;
-
-    const nuevoUsuario = {
+  private get datosFormulario(): UsuarioCreacion {
+    return {
       username: this.registroForm.value.username,
       password: this.registroForm.value.password,
       correo: this.registroForm.value.correo,
       nombreApellido: this.registroForm.value.nombreApellido,
       idRol: 2,
     };
+  }
 
-    this.usuarioService.saveUsuario(nuevoUsuario).subscribe({
-      next: () => {
-        this.loading = false;
-        this.dialogService.mostrar('¡Usuario creado exitosamente!', 'exito');
-        setTimeout(() => this.router.navigate(['/login']), 1500);
-      },
-      error: (err) => {
-        this.loading = false;
-        const mensaje =
-          err.status === 409
-            ? (err.error?.message ?? 'El nombre de usuario ya está en uso')
-            : 'Error del servidor, inténtelo más tarde';
-        this.dialogService.mostrar(mensaje, 'error');
-      },
+  onSubmit(): void {
+    if (this.registroForm.invalid) {
+      this.registroForm.markAllAsTouched();
+      return;
+    }
+
+    this.loading.set(true);
+
+    setTimeout(() => {
+      this.usuarioService.enviarCodigoVerificacion(this.datosFormulario).subscribe({
+        next: () => {
+          this.loading.set(false);
+          this.codigoDialog.abrir();
+        },
+        error: (err) => {
+          this.loading.set(false);
+          this.dialogService.mostrar(
+            err.error?.message ?? 'Error del servidor, inténtelo más tarde',
+            'error',
+          );
+        },
+      });
+    });
+  }
+
+  onCodigoVerificado(codigo: string): void {
+    setTimeout(() => {
+      this.usuarioService.registrarUsuario(this.datosFormulario, codigo).subscribe({
+        next: () => {
+          this.codigoDialog.cerrar();
+          this.dialogService.mostrar('¡Usuario creado exitosamente!', 'exito');
+          setTimeout(() => this.router.navigate(['/login']), 1500);
+        },
+        error: (err) => {
+          this.codigoDialog.mostrarError();
+          this.dialogService.mostrar('Codigo de verificación inválido o expirado', 'error');
+        },
+      });
     });
   }
 }

@@ -24,6 +24,14 @@ export class UsuarioService {
     return this.http.post<Usuario>(this.api + 'saveUsuario', usuario);
   }
 
+  enviarCodigoVerificacion(usuario: UsuarioCreacion): Observable<void> {
+    return this.http.post<void>(this.api + 'enviarCodigoVerificacion', usuario);
+  }
+
+  registrarUsuario(usuario: UsuarioCreacion, codigo: string): Observable<Usuario> {
+    return this.http.post<Usuario>(this.api + 'registrar?codigoVerificacion=' + codigo, usuario);
+  }
+
   putUsuario(usuario: any): Observable<Usuario> {
     return this.http.put<Usuario>(this.api + 'updateUsuario', usuario);
   }

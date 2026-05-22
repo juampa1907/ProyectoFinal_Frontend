@@ -53,19 +53,19 @@ export class UsuarioLogin {
     });
   }
 
+  isInvalid(campo: string): boolean {
+    const control = this.loginForm.get(campo);
+    return !!(control?.invalid && control?.touched);
+  }
+
+  hasError(campo: string, error: string): boolean {
+    const control = this.loginForm.get(campo);
+    return !!(control?.hasError(error) && control?.touched);
+  }
+
   onSubmit(): void {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
-      const usernameVacio = this.loginForm.get('username')?.hasError('required');
-      const passwordVacio = this.loginForm.get('password')?.hasError('required');
-
-      if (usernameVacio && passwordVacio) {
-        this.dialogService.mostrar('El usuario y la contraseña son requeridos', 'error');
-      } else if (usernameVacio) {
-        this.dialogService.mostrar('El campo usuario es requerido', 'error');
-      } else if (passwordVacio) {
-        this.dialogService.mostrar('El campo contraseña es requerido', 'error');
-      }
       return;
     }
 
@@ -79,11 +79,7 @@ export class UsuarioLogin {
       },
       error: (err) => {
         this.loading = false;
-        const mensaje =
-          err.status === 401
-            ? 'Credenciales incorrectas'
-            : 'Error del servidor, intentelo más tarde';
-        this.dialogService.mostrar(mensaje, 'error');
+        this.dialogService.mostrar(err.error?.message ?? 'Error del servidor, intentelo más tarde', 'error');
       },
     });
   }

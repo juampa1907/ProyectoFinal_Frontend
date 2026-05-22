@@ -7,8 +7,9 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  min-width: 100vw;
-  overflow: hidden;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
   font-family: sans-serif;
 }
 
@@ -125,4 +126,18 @@
   color: #6366f1;
   transform: scale(1.2);
   cursor: pointer;
+}
+
+.error-msg {
+  color: #e53935;
+  font-size: 0.78rem;
+  display: block;
+}
+
+:host ::ng-deep .p-inputtext.input-error {
+  border-color: #e53935 !important;
+}
+
+:host ::ng-deep .field-password.ng-invalid .p-inputtext {
+  border-color: #e53935 !important;
 }

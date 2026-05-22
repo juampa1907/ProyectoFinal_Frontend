@@ -1,0 +1,43 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [closable]="false"
+  [style]="{ width: '420px', borderRadius: '20px' }"
+  [contentStyle]="{ padding: '0' }"
+>
+  <ng-template pTemplate="header">
+    <div class="dialog-header">
+      <span class="dialog-title">INSERTAR CÓDIGO</span>
+    </div>
+  </ng-template>
+
+  <div class="dialog-body">
+    <p class="dialog-subtitle">Fue enviado un código a <strong>{{ correo }}</strong></p>
+
+    <form [formGroup]="form" (paste)="onPaste($event)">
+      <div class="codigo-container">
+        <input
+          #digitoInput
+          *ngFor="let d of [0,1,2,3,4,5]; let i = index"
+          [formControlName]="'d' + i"
+          class="codigo-input"
+          [class.input-error]="form.get('d' + i)?.invalid && form.get('d' + i)?.touched"
+          type="text"
+          inputmode="numeric"
+          maxlength="1"
+          (input)="onDigitoInput(i, $event)"
+          (keydown)="onDigitoKeydown(i, $event)"
+        />
+      </div>
+    </form>
+
+    <span class="error-msg" *ngIf="form.invalid && form.touched">Todos los dígitos son requeridos</span>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="dialog-footer">
+      <p-button label="Cancelar" severity="secondary" (onClick)="cerrar()"></p-button>
+      <p-button label="Verificar" (onClick)="verificar()" [disabled]="loading || form.invalid"></p-button>
+    </div>
+  </ng-template>
+</p-dialog>

@@ -44,76 +44,141 @@
 
         <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
           <label class="login-label mb-2">Nombre y Apellido</label>
-          <input
-            pInputText
-            type="text"
-            placeholder="Ej: Pablo Gonzalez"
-            formControlName="nombreApellido"
-            class="w-full mb-4"
-            [class.ng-invalid]="
-              registroForm.get('nombreApellido')?.invalid &&
-              registroForm.get('nombreApellido')?.touched
-            "
-          />
+          <div class="mb-4">
+            <input
+              pInputText
+              type="text"
+              placeholder="Ej: Pablo Gonzalez"
+              formControlName="nombreApellido"
+              class="w-full"
+              [class.input-error]="isInvalid('nombreApellido')"
+            />
+            <span class="error-msg" *ngIf="hasError('nombreApellido', 'required')"
+              >Campo requerido</span
+            >
+            <span class="error-msg" *ngIf="hasError('nombreApellido', 'minlength')"
+              >Mínimo 6 caracteres</span
+            >
+            <span class="error-msg" *ngIf="hasError('nombreApellido', 'conNumero')"
+              >No puede contener números</span
+            >
+            <span class="error-msg" *ngIf="hasError('nombreApellido', 'conCaracter')"
+              >No puede contener caracteres especiales</span
+            >
+          </div>
 
           <label class="login-label mb-2">Usuario</label>
-          <input
-            pInputText
-            type="text"
-            placeholder="Ej: Gonzo14"
-            formControlName="username"
-            class="w-full mb-4"
-            [class.ng-invalid]="
-              registroForm.get('username')?.invalid && registroForm.get('username')?.touched
-            "
-          />
+          <div class="mb-4">
+            <input
+              pInputText
+              type="text"
+              placeholder="Ej: Gonzo14"
+              formControlName="username"
+              class="w-full"
+              [class.input-error]="isInvalid('username')"
+            />
+            <span class="error-msg" *ngIf="hasError('username', 'required')">Campo requerido</span>
+            <span class="error-msg" *ngIf="hasError('username', 'minlength')"
+              >Mínimo 3 caracteres</span
+            >
+            <span class="error-msg" *ngIf="hasError('username', 'conEspacio')"
+              >No puede contener espacios</span
+            >
+            <span class="error-msg" *ngIf="hasError('username', 'sinNumero')"
+              >Debe tener al menos 1 número</span
+            >
+            <span class="error-msg" *ngIf="hasError('username', 'sinLetra')"
+              >Debe tener al menos 1 letra</span
+            >
+          </div>
 
           <label class="login-label mb-2">Correo Electronico</label>
-          <input
-            pInputText
-            type="text"
-            placeholder="Ej: example@gmail.com"
-            formControlName="correo"
-            class="w-full mb-4"
-            [class.ng-invalid]="
-              registroForm.get('correo')?.invalid && registroForm.get('correo')?.touched
-            "
-          />
+          <div class="mb-4">
+            <input
+              pInputText
+              type="text"
+              placeholder="Ej: example@gmail.com"
+              formControlName="correo"
+              class="w-full"
+              [class.input-error]="isInvalid('correo')"
+            />
+            <span class="error-msg" *ngIf="hasError('correo', 'required')">Campo requerido</span>
+            <span class="error-msg" *ngIf="hasError('correo', 'email')"
+              >Formato de correo inválido</span
+            >
+            <span class="error-msg" *ngIf="hasError('correo', 'conEspacio')"
+              >Formato de correo inválido</span
+            >
+            <span class="error-msg" *ngIf="hasError('correo', 'conMayuscula')"
+              >Formato de correo inválido</span
+            >
+          </div>
 
           <label class="login-label mb-2">Contraseña</label>
-          <p-password
-            formControlName="password"
-            placeholder="Mínimo 6 caracteres"
-            [toggleMask]="true"
-            [fluid]="true"
-            [feedback]="false"
-            [styleClass]="
-              registroForm.get('password')?.invalid && registroForm.get('password')?.touched
-                ? 'ng-invalid ng-dirty'
-                : 'mb-4'
-            "
-          >
-          </p-password>
+          <div class="mb-4">
+            <p-password
+              formControlName="password"
+              placeholder="Mínimo 6 caracteres"
+              [toggleMask]="true"
+              [fluid]="true"
+              [feedback]="false"
+              [styleClass]="
+                isInvalid('password') ? 'field-password ng-invalid ng-dirty' : 'field-password'
+              "
+            >
+            </p-password>
+            <span class="error-msg" *ngIf="hasError('password', 'required')">Campo requerido</span>
+            <span class="error-msg" *ngIf="hasError('password', 'minlength')"
+              >Mínimo 6 caracteres</span
+            >
+            <span class="error-msg" *ngIf="hasError('password', 'maxlength')"
+              >Máximo 8 caracteres</span
+            >
+            <span class="error-msg" *ngIf="hasError('password', 'sinMayuscula')"
+              >Debe tener al menos una mayúscula</span
+            >
+            <span class="error-msg" *ngIf="hasError('password', 'sinMinuscula')"
+              >Debe tener al menos una minúscula</span
+            >
+            <span class="error-msg" *ngIf="hasError('password', 'sinNumero')"
+              >Debe tener al menos un número</span
+            >
+            <span class="error-msg" *ngIf="hasError('password', 'conEspacio')"
+              >No puede contener espacios</span
+            >
+          </div>
 
           <label class="login-label mb-2 mt-4">Confirmar Contraseña</label>
-          <p-password
-            formControlName="confirmarPassword"
-            placeholder="Repite tu contraseña"
-            [fluid]="true"
-            [feedback]="false"
-            [styleClass]="
-              (registroForm.get('confirmarPassword')?.invalid &&
-                registroForm.get('confirmarPassword')?.touched) ||
-              (registroForm.hasError('noCoinciden') &&
-                registroForm.get('confirmarPassword')?.touched)
-                ? 'ng-invalid ng-dirty'
-                : ''
-            "
-          >
-          </p-password>
+          <div class="mb-4">
+            <p-password
+              formControlName="confirmarPassword"
+              placeholder="Repite tu contraseña"
+              [fluid]="true"
+              [feedback]="false"
+              [styleClass]="
+                isInvalid('confirmarPassword') ||
+                (registroForm.hasError('noCoinciden') &&
+                  registroForm.get('confirmarPassword')?.touched)
+                  ? 'field-password ng-invalid ng-dirty'
+                  : 'field-password'
+              "
+            >
+            </p-password>
+            <span class="error-msg" *ngIf="hasError('confirmarPassword', 'required')"
+              >Debes confirmar tu contraseña</span
+            >
+            <span
+              class="error-msg"
+              *ngIf="
+                registroForm.hasError('noCoinciden') &&
+                registroForm.get('confirmarPassword')?.touched
+              "
+              >Las contraseñas no coinciden</span
+            >
+          </div>
 
-          <p-button styleClass="w-full boton-ingresar mt-4" type="submit" [disabled]="loading">
-            {{ loading ? 'Creando cuenta...' : 'REGISTRARSE' }}
+          <p-button styleClass="w-full boton-ingresar mt-4" type="submit" [disabled]="loading()">
+            {{ loading() ? 'Verificando...' : 'REGISTRARSE' }}
           </p-button>
 
           <div class="flex items-center mt-2">
@@ -123,6 +188,10 @@
         </form>
 
         <app-dialog-alert></app-dialog-alert>
+        <app-dialog-codigo-verificacion
+          [correo]="registroForm.get('correo')?.value"
+          (codigoVerificado)="onCodigoVerificado($event)"
+        ></app-dialog-codigo-verificacion>
       </div>
     </div>
   </div>

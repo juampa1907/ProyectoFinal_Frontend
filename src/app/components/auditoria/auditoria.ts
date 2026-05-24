@@ -15,6 +15,7 @@ import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
 import { DialogEditAuditoria } from '../dialogs/dialog-edit-auditoria/dialog-edit-auditoria';
 import { Subscription } from 'rxjs';
 import { DashboardDataService } from '../../service/dashboard-service';
+import { ReporteService } from '../../service/reporte-service';
 
 @Component({
   selector: 'app-auditoria',
@@ -50,6 +51,7 @@ export class Auditoria implements OnInit, OnDestroy {
   totalUsuarios = 0;
   totalEquiposActivos = 0;
   faseActual = 'Sin definir';
+  cargando = false;
 
   private suscripciones: Subscription[] = [];
 
@@ -59,6 +61,7 @@ export class Auditoria implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public dialogConfirmService: DialogConfirmService,
     private dialogService: DialogService,
+    private reporteService: ReporteService
   ) {}
 
   ngOnInit(): void {
@@ -142,5 +145,26 @@ export class Auditoria implements OnInit, OnDestroy {
 
   onAbrirEliminar(auditoria: AuditoriaModel): void {
     this.dialogConfirmService.abrir(auditoria.idLog, 'AUDITORIA');
+  }
+
+  descargarReporte(){
+    this.cargando = true;
+    this.reporteService.descargarReporte().subscribe({
+    next: (blob) => {
+      this.cargando = false;
+      this.cdr.detectChanges();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'reporte_mundial2026.pdf';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    },
+    error: (err) => {
+      this.cargando = false;
+      this.cdr.detectChanges();
+      console.error('Error al descargar el reporte', err);
+    }
+  });
   }
 }

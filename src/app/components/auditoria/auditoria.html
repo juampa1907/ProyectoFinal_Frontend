@@ -36,9 +36,9 @@
           <div class="table-header">
             <h2 class="table-title">LISTA AUDITORIA</h2>
             <div class="header-buttons">
-              <button mat-flat-button class="btn-descargar">
-                <mat-icon>download</mat-icon>
-                DESCARGAR INFORME
+              <button mat-flat-button class="btn-descargar" (click)="descargarReporte()" [disabled]="cargando">
+                <mat-icon>{{ cargando ? 'hourglass_empty' : 'download' }}</mat-icon>
+                {{ cargando ? 'DESCARGANDO...' : 'DESCARGAR INFORME' }}
               </button>
             </div>
           </div>

@@ -1,4 +1,4 @@
-.partido-wrapper {
+﻿.partido-wrapper {
   background-color: white;
   border-radius: 26px;
   height: calc(100vh - 80px);
@@ -25,34 +25,6 @@
   color: #000000;
   margin: 0;
   letter-spacing: 0.5px;
-}
-
-.header-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.btn-crear {
-  background-color: #2e7d32 !important;
-  color: #ffffff !important;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0 20px;
-  height: 40px;
-  border-radius: 6px;
-  transition: background-color 0.2s ease;
-}
-
-.btn-crear mat-icon {
-  font-size: 20px;
-  height: 20px;
-  width: 20px;
-}
-
-.btn-crear:hover {
-  background-color: #1b5e20 !important;
 }
 
 .search-wrapper {
@@ -91,37 +63,12 @@
   box-shadow: 0 2px 12px rgba(184, 134, 11, 0.15);
 }
 
-.card-actions {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  display: flex;
-  gap: 4px;
-}
-
-.btn-editar {
-  color: #1565c0 !important;
-}
-
-.btn-editar:hover {
-  background-color: rgba(21, 101, 192, 0.1) !important;
-}
-
-.btn-eliminar {
-  color: #c62828 !important;
-}
-
-.btn-eliminar:hover {
-  background-color: rgba(198, 40, 40, 0.1) !important;
-}
-
 .partido-main-row {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 32px;
   width: 100%;
-  padding-top: 8px;
 }
 
 .team-section {

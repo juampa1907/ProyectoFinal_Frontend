@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+﻿import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -79,7 +79,13 @@ export class UsuarioLogin {
       next: (response) => {
         this.loading = false;
         sessionStorage.setItem('usuarioLogueado', JSON.stringify(response));
-        this.router.navigate(['/dashboard']);
+        if (response.idRol === 1) {
+          this.router.navigate(['/admin/dashboard']);
+        } else if (response.idRol === 3) {
+          this.router.navigate(['/operario/equipos']);
+        } else {
+          this.router.navigate(['/usuario/equipos']);
+        }
       },
       error: (err) => {
         this.loading = false;

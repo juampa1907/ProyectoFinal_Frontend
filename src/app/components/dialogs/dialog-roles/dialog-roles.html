@@ -40,7 +40,7 @@
             class="btn-editar"
             [matTooltip]="rol.estado === 'A' ? 'Desactivar rol' : 'Activar rol'"
             (click)="toggleEstado(rol)"
-            *ngIf="rol.nombreRol !== 'Administrador'"
+            *ngIf="rol.idRol !== 1"
           >
             <mat-icon>{{ rol.estado === 'A' ? 'toggle_on' : 'toggle_off' }}</mat-icon>
           </button>

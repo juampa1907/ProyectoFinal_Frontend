@@ -11,7 +11,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DialogEditEquipo } from '../dialogs/dialog-edit-equipo/dialog-edit-equipo';
 import { DialogService } from '../../service/dialog-service';
-import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
 
 @Component({
   selector: 'app-equipo-table',
@@ -24,7 +23,6 @@ import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
     MatButtonModule,
     MatTooltipModule,
     DialogEditEquipo,
-    DialogAlert,
   ],
   templateUrl: './equipo-table.html',
   styleUrl: './equipo-table.css',

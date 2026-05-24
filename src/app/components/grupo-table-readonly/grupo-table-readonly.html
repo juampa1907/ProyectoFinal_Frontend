@@ -4,14 +4,6 @@
       <div class="grupo-card">
         <div class="grupo-card-header">
           <span class="grupo-card-title">GRUPO {{ grupo.idGrupo }}</span>
-          <button
-            mat-icon-button
-            class="btn-editar-grupo"
-            (click)="dialogEditar.abrir(grupo.idGrupo, grupo.estado)"
-            matTooltip="Editar grupo"
-          >
-            <mat-icon>edit</mat-icon>
-          </button>
         </div>
 
         <div class="grupo-card-body">
@@ -36,9 +28,4 @@
       </div>
     }
   </div>
-
-  <app-dialog-edit-grupo
-    #dialogEditar
-    (grupoEditado)="onGrupoEditado($event)"
-  ></app-dialog-edit-grupo>
 </div>

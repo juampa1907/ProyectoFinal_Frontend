@@ -21,7 +21,7 @@ import { Subscription } from 'rxjs';
       <ng-template pTemplate="footer">
         <p-button
           label="Aceptar"
-          (onClick)="visible = false"
+          (onClick)="cerrar()"
           [severity]="tipo === 'error' ? 'danger' : 'success'"
         >
         </p-button>
@@ -47,6 +47,11 @@ export class DialogAlert implements OnInit, OnDestroy {
       this.visible = true;
       this.cdr.detectChanges();
     });
+  }
+
+  cerrar() {
+    this.visible = false;
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy() {

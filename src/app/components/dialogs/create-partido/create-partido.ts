@@ -129,7 +129,7 @@ export class CreatePartido implements OnInit {
     const fechaHora = this.form.value.fechaHora;
     const fechaFormateada =
       fechaHora instanceof Date
-        ? fechaHora.toISOString().substring(0, 19)
+        ? `${fechaHora.getFullYear()}-${String(fechaHora.getMonth() + 1).padStart(2, '0')}-${String(fechaHora.getDate()).padStart(2, '0')}T${String(fechaHora.getHours()).padStart(2, '0')}:${String(fechaHora.getMinutes()).padStart(2, '0')}:${String(fechaHora.getSeconds()).padStart(2, '0')}`
         : fechaHora;
 
     const payload = {

@@ -44,11 +44,13 @@ export class DialogConfirmEliminar implements OnInit, OnDestroy {
   cancelar() {
     this.visible = false;
     this.loading = false;
+    this.cdr.detectChanges();
   }
 
   eliminar() {
     this.loading = true;
     this.confirmarEliminar.emit(this.idUsuario);
+    this.cdr.detectChanges();
   }
 
   cerrarConExito() {

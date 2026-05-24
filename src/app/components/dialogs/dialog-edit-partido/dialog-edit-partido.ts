@@ -112,7 +112,15 @@ export class DialogEditPartido implements OnInit {
   abrir(id: number, partido: Partido): void {
     this.idPartido = id;
 
-    const fechaHora = partido.fechaHora ? new Date(partido.fechaHora) : null;
+    const fechaHora = partido.fechaHora
+      ? (() => {
+          const [datePart, timePart] = partido.fechaHora.split('T');
+          if (!datePart || !timePart) return new Date(partido.fechaHora);
+          const [y, m, d] = datePart.split('-').map(Number);
+          const [h, min] = timePart.split(':').map(Number);
+          return new Date(y, m - 1, d, h, min);
+        })()
+      : null;
 
     this.form.patchValue({
       idEquipoLocal: partido.idEquipoLocal,
@@ -142,7 +150,7 @@ export class DialogEditPartido implements OnInit {
     const fechaHora = this.form.value.fechaHora;
     const fechaFormateada =
       fechaHora instanceof Date
-        ? fechaHora.toISOString().substring(0, 19)
+        ? `${fechaHora.getFullYear()}-${String(fechaHora.getMonth() + 1).padStart(2, '0')}-${String(fechaHora.getDate()).padStart(2, '0')}T${String(fechaHora.getHours()).padStart(2, '0')}:${String(fechaHora.getMinutes()).padStart(2, '0')}:${String(fechaHora.getSeconds()).padStart(2, '0')}`
         : fechaHora;
 
     const payload = {

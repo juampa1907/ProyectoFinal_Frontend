@@ -1,4 +1,4 @@
-<div class="equipo-wrapper">
+﻿<div class="equipo-wrapper">
   <div class="table-header">
     <h2 class="table-title">LISTA EQUIPOS</h2>
   </div>
@@ -45,35 +45,15 @@
         <td mat-cell *matCellDef="let equipo">{{ getEstadoNombre(equipo.estado) }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="editar">
-        <th mat-header-cell *matHeaderCellDef>EDITAR</th>
-        <td mat-cell *matCellDef="let equipo">
-          <button
-            mat-icon-button
-            class="btn-editar"
-            (click)="dialogEditar.abrir(equipo.idEquipo, equipo.estado)"
-            matTooltip="Editar equipo"
-          >
-            <mat-icon>edit</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
       <tr class="mat-row no-data-row" *matNoDataRow>
         <td class="mat-cell" [attr.colspan]="displayedColumns.length">
           <mat-icon>search_off</mat-icon>
-          No se encontraron resultados para "<strong>{{ input.value }}</strong
-          >"
+          No se encontraron resultados para "<strong>{{ input.value }}</strong>"
         </td>
       </tr>
     </table>
   </div>
-
-  <app-dialog-edit-equipo
-    #dialogEditar
-    (equipoEditado)="onEquipoEditado($event)"
-  ></app-dialog-edit-equipo>
 </div>

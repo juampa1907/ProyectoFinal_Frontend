@@ -1,4 +1,4 @@
-import { Component, computed, input, signal, ViewChild } from '@angular/core';
+import { Component, computed, signal, ViewChild } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Header } from '../header/header';
 import { MenuItem } from '../../models/interface';
@@ -8,7 +8,7 @@ import { DialogEditarPerfil } from '../dialogs/dialog-editar-perfil/dialog-edita
 import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
 
 @Component({
-  selector: 'app-sidenav-admin',
+  selector: 'app-sidenav-operario',
   styles: [
     `
       :host ::ng-deep .mat-drawer-inner-container {
@@ -94,17 +94,15 @@ import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
     <app-dialog-alert />
   `,
 })
-export class SidenavAdmin {
+export class SidenavOperario {
   @ViewChild('dialogEditarPerfil') dialogEditarPerfil!: DialogEditarPerfil;
 
   items = signal<MenuItem[]>([
-    { path: '/admin/dashboard', icon: 'assignment', label: 'Auditoria' },
-    { path: '/admin/equipos', icon: 'shield', label: 'Equipos' },
-    { path: '/admin/estadios', icon: 'stadium', label: 'Estadios' },
-    { path: '/admin/grupos', icon: 'emoji_events', label: 'Grupos' },
-    { path: '/admin/jugadores', icon: 'sports_soccer', label: 'Jugadores' },
-    { path: '/admin/partidos', icon: 'sports', label: 'Partidos' },
-    { path: '/admin/usuarios', icon: 'group', label: 'Usuarios' },
+    { path: '/operario/equipos', icon: 'shield', label: 'Equipos' },
+    { path: '/operario/estadios', icon: 'stadium', label: 'Estadios' },
+    { path: '/operario/grupos', icon: 'emoji_events', label: 'Grupos' },
+    { path: '/operario/jugadores', icon: 'sports_soccer', label: 'Jugadores' },
+    { path: '/operario/partidos', icon: 'sports', label: 'Partidos' },
   ]);
 
   collapsed = signal(false);
@@ -117,6 +115,5 @@ export class SidenavAdmin {
   }
 
   onPerfilEditado(usuario: any): void {
-    // debug removed
   }
 }

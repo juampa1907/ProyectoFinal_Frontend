@@ -11,7 +11,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DialogConfirmEliminar } from '../dialogs/dialog-confirm-eliminar/dialog-confirm-eliminar';
 import { DialogConfirmService } from '../../service/dialog-confirm-service';
 import { DialogService } from '../../service/dialog-service';
-import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
 import { DialogEditAuditoria } from '../dialogs/dialog-edit-auditoria/dialog-edit-auditoria';
 import { Subscription } from 'rxjs';
 import { DashboardDataService } from '../../service/dashboard-service';
@@ -28,7 +27,6 @@ import { ReporteService } from '../../service/reporte-service';
     MatButtonModule,
     MatTooltipModule,
     DialogConfirmEliminar,
-    DialogAlert,
     DialogEditAuditoria,
   ],
   templateUrl: './auditoria.html',

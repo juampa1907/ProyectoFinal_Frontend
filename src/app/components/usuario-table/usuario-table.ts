@@ -14,7 +14,6 @@ import { DialogEditUsuario } from '../dialogs/dialog-edit-usuario/dialog-edit-us
 import { DialogConfirmEliminar } from '../dialogs/dialog-confirm-eliminar/dialog-confirm-eliminar';
 import { DialogConfirmService } from '../../service/dialog-confirm-service';
 import { DialogService } from '../../service/dialog-service';
-import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
 import { DialogRoles } from '../dialogs/dialog-roles/dialog-roles';
 import { PerfilService } from '../../service/perfil-service';
 import { Subscription } from 'rxjs';
@@ -32,7 +31,6 @@ import { Subscription } from 'rxjs';
     CreateUsuario,
     DialogEditUsuario,
     DialogConfirmEliminar,
-    DialogAlert,
     DialogRoles,
   ],
   templateUrl: './usuario-table.html',

@@ -14,7 +14,6 @@ import { DialogEditEstadio } from '../dialogs/dialog-edit-estadio/dialog-edit-es
 import { DialogConfirmEliminar } from '../dialogs/dialog-confirm-eliminar/dialog-confirm-eliminar';
 import { DialogConfirmService } from '../../service/dialog-confirm-service';
 import { DialogService } from '../../service/dialog-service';
-import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
 
 @Component({
   selector: 'app-estadio-table',
@@ -29,7 +28,6 @@ import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
     CreateEstadio,
     DialogEditEstadio,
     DialogConfirmEliminar,
-    DialogAlert,
   ],
   templateUrl: './estadio-table.html',
   styleUrl: './estadio-table.css',
@@ -37,7 +35,6 @@ import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
 export class EstadioTable implements OnInit {
   estadios = new MatTableDataSource<Estadio>([]);
   displayedColumns: string[] = [
-    'idEstadio',
     'descripcion',
     'estado',
     'editar',
@@ -56,7 +53,6 @@ export class EstadioTable implements OnInit {
     this.estadios.filterPredicate = (data: Estadio, filter: string) => {
       const searchText = filter.toLowerCase();
       return (
-        data.idEstadio.toString().includes(searchText) ||
         data.descripcion.toLowerCase().includes(searchText) ||
         data.estado.toLowerCase().includes(searchText)
       );

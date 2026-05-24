@@ -3,7 +3,6 @@ import { Partido } from '../../models/partido';
 import { PartidoService } from '../../service/partido-service';
 import { EquipoService } from '../../service/equipo-service';
 import { DashboardDataService } from '../../service/dashboard-service';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
@@ -15,14 +14,12 @@ import { DialogEditPartido } from '../dialogs/dialog-edit-partido/dialog-edit-pa
 import { DialogConfirmEliminar } from '../dialogs/dialog-confirm-eliminar/dialog-confirm-eliminar';
 import { DialogConfirmService } from '../../service/dialog-confirm-service';
 import { DialogService } from '../../service/dialog-service';
-import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
 import { Equipo } from '../../models/equipo';
 
 @Component({
   selector: 'app-partido-table',
   imports: [
     CommonModule,
-    MatTableModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
@@ -31,26 +28,14 @@ import { Equipo } from '../../models/equipo';
     CreatePartido,
     DialogEditPartido,
     DialogConfirmEliminar,
-    DialogAlert,
   ],
   templateUrl: './partido-table.html',
   styleUrl: './partido-table.css',
 })
 export class PartidoTable implements OnInit {
-  partidos = new MatTableDataSource<Partido>([]);
+  partidosData: Partido[] = [];
   equipos: Equipo[] = [];
-  displayedColumns: string[] = [
-    'idPartido',
-    'idEquipoLocal',
-    'idEquipoVisitante',
-    'fase',
-    'golesLocal',
-    'golesVisitante',
-    'fechaHora',
-    'estado',
-    'editar',
-    'eliminar',
-  ];
+  filterText = '';
 
   constructor(
     private partidoService: PartidoService,
@@ -62,35 +47,36 @@ export class PartidoTable implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.partidos.filterPredicate = (data: Partido, filter: string) => {
-      const localNombre = this.getNombreEquipo(data.idEquipoLocal).toLowerCase();
-      const visitanteNombre = this.getNombreEquipo(data.idEquipoVisitante).toLowerCase();
-      const faseNombre = this.getFaseNombre(data.fase).toLowerCase();
-      const searchText = filter.toLowerCase();
-      return (
-        data.idPartido.toString().includes(searchText) ||
-        localNombre.includes(searchText) ||
-        visitanteNombre.includes(searchText) ||
-        faseNombre.includes(searchText) ||
-        data.golesLocal.toString().includes(searchText) ||
-        data.golesVisitante.toString().includes(searchText) ||
-        data.fechaHora.toLowerCase().includes(searchText) ||
-        data.estado.toLowerCase().includes(searchText)
-      );
-    };
     this.listPartidos();
     this.listEquipos();
+  }
+
+  get partidosFiltrados(): Partido[] {
+    if (!this.filterText.trim()) return this.partidosData;
+    const term = this.filterText.toLowerCase();
+    return this.partidosData.filter((p) => {
+      const local = this.getNombreEquipo(p.idEquipoLocal).toLowerCase();
+      const visitante = this.getNombreEquipo(p.idEquipoVisitante).toLowerCase();
+      const fase = this.getFaseNombre(p.fase).toLowerCase();
+      return (
+        local.includes(term) ||
+        visitante.includes(term) ||
+        fase.includes(term) ||
+        p.golesLocal.toString().includes(term) ||
+        p.golesVisitante.toString().includes(term) ||
+        p.fechaHora.toLowerCase().includes(term) ||
+        p.estado.toLowerCase().includes(term)
+      );
+    });
   }
 
   listPartidos(): void {
     this.partidoService.getPartidoList().subscribe({
       next: (data) => {
-        this.partidos.data = data;
+        this.partidosData = data;
         this.cdr.detectChanges();
       },
-      error: (err) => {
-        // error handled silently
-      },
+      error: () => {},
     });
   }
 
@@ -100,15 +86,12 @@ export class PartidoTable implements OnInit {
         this.equipos = data;
         this.cdr.detectChanges();
       },
-      error: (err) => {
-        // error handled silently
-      },
+      error: () => {},
     });
   }
 
   applyFilter(event: Event): void {
-    const value = (event.target as HTMLInputElement).value;
-    this.partidos.filter = value.trim().toLowerCase();
+    this.filterText = (event.target as HTMLInputElement).value;
   }
 
   getBanderaEquipo(idEquipo: number): string {
@@ -123,43 +106,31 @@ export class PartidoTable implements OnInit {
 
   getFaseNombre(fase: string): string {
     switch (fase) {
-      case 'Grupos':
-        return 'GRUPOS';
-      case 'Dieciseis':
-        return 'DIECISEISAVOS';
-      case 'Octavos':
-        return 'OCTAVOS';
-      case 'Cuartos':
-        return 'CUARTOS';
-      case 'Semifinal':
-        return 'SEMIFINAL';
-      case 'Final':
-        return 'FINAL';
-      default:
-        return fase;
+      case 'Grupos': return 'GRUPOS';
+      case 'Dieciseis': return 'DIECISEISAVOS';
+      case 'Octavos': return 'OCTAVOS';
+      case 'Cuartos': return 'CUARTOS';
+      case 'Semifinal': return 'SEMIFINAL';
+      case 'Final': return 'FINAL';
+      default: return fase;
     }
   }
 
   getEstadoNombre(estado: string): string {
     switch (estado) {
-      case 'A':
-        return 'ACTIVO';
-      case 'I':
-        return 'INACTIVO';
-      default:
-        return 'desconocido';
+      case 'A': return 'ACTIVO';
+      case 'I': return 'INACTIVO';
+      default: return 'desconocido';
     }
   }
 
   formatFechaHora(fechaHora: string): string {
     if (!fechaHora) return '-';
-    const date = new Date(fechaHora);
-    const yyyy = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, '0');
-    const dd = String(date.getDate()).padStart(2, '0');
-    const HH = String(date.getHours()).padStart(2, '0');
-    const min = String(date.getMinutes()).padStart(2, '0');
-    return `${yyyy}-${mm}-${dd} ${HH}:${min}`;
+    const [datePart, timePart] = fechaHora.split('T');
+    if (!datePart || !timePart) return fechaHora;
+    const [y, m, d] = datePart.split('-').map(Number);
+    const [h, min] = timePart.split(':').map(Number);
+    return `${String(y).padStart(4, '0')}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')} ${String(h).padStart(2, '0')}:${String(min).padStart(2, '0')}`;
   }
 
   @ViewChild('dialogCrear') dialogCrear!: CreatePartido;
@@ -174,7 +145,6 @@ export class PartidoTable implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        // error handled silently
         this.dialogCrear.cerrarConError();
         this.dialogService.mostrar(
           err.status === 0
@@ -209,7 +179,6 @@ export class PartidoTable implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        // error handled silently
         this.dialogEditar.cerrarConError();
         this.dialogService.mostrar(
           err.status === 0
@@ -232,15 +201,9 @@ export class PartidoTable implements OnInit {
         this.dashboardService.cargar();
         this.cdr.detectChanges();
       },
-      error: (err) => {
-        // error handled silently
+      error: () => {
         this.dialogConfirm.cerrarConError();
-        this.dialogService.mostrar(
-          err.status === 0
-            ? 'No se pudo conectar con el servidor'
-            : `Error ${err.status}: Ocurrió un error al eliminar el partido`,
-          'error',
-        );
+        this.dialogService.mostrar('Ocurrió un error al eliminar el partido', 'error');
       },
     });
   }

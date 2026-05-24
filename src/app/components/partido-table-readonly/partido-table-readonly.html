@@ -1,12 +1,6 @@
-<div class="partido-wrapper">
+﻿<div class="partido-wrapper">
   <div class="table-header">
     <h2 class="table-title">LISTA PARTIDOS</h2>
-    <div class="header-buttons">
-      <button mat-flat-button class="btn-crear" (click)="dialogCrear.abrir()">
-        <mat-icon>add</mat-icon>
-        CREAR PARTIDO
-      </button>
-    </div>
   </div>
 
   <div class="search-wrapper">
@@ -32,25 +26,6 @@
 
     @for (partido of partidosFiltrados; track partido.idPartido) {
       <div class="partido-card">
-        <div class="card-actions">
-          <button
-            mat-icon-button
-            class="btn-editar"
-            (click)="dialogEditar.abrir(partido.idPartido, partido)"
-            matTooltip="Editar partido"
-          >
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button
-            mat-icon-button
-            class="btn-eliminar"
-            matTooltip="Eliminar partido"
-            (click)="onAbrirEliminar(partido)"
-          >
-            <mat-icon>delete</mat-icon>
-          </button>
-        </div>
-
         <div class="partido-main-row">
           <div class="team-section">
             <img
@@ -83,14 +58,4 @@
       </div>
     }
   </div>
-
-  <app-create-partido #dialogCrear (partidoCreado)="onPartidoCreado($event)"></app-create-partido>
-  <app-dialog-edit-partido
-    #dialogEditar
-    (partidoEditado)="onPartidoEditado($event)"
-  ></app-dialog-edit-partido>
-  <app-dialog-confirm-eliminar
-    #dialogConfirm
-    (confirmarEliminar)="onEliminarPartido($event)"
-  ></app-dialog-confirm-eliminar>
 </div>

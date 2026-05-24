@@ -8,12 +8,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DialogEditGrupo } from '../dialogs/dialog-edit-grupo/dialog-edit-grupo';
 import { GrupoService } from '../../service/grupo-service';
 import { DialogService } from '../../service/dialog-service';
-import { DialogAlert } from '../dialogs/dialog-alert/dialog-alert';
 import { Grupo } from '../../models/grupo';
 
 @Component({
   selector: 'app-grupo-table',
-  imports: [CommonModule, MatIconModule, MatButtonModule, MatTooltipModule, DialogEditGrupo, DialogAlert],
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatTooltipModule, DialogEditGrupo],
   templateUrl: './grupo-table.html',
   styleUrl: './grupo-table.css',
 })

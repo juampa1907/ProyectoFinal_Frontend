@@ -83,7 +83,10 @@ export class UsuarioLogin {
       },
       error: (err) => {
         this.loading = false;
-        this.dialogService.mostrar(err.error?.message ?? 'Error del servidor, intentelo más tarde', 'error');
+        this.dialogService.mostrar(
+          err.error?.message ?? 'Credenciales incorrectas',
+          'error',
+        );
       },
     });
   }

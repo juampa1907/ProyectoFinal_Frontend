@@ -39,4 +39,25 @@ export class UsuarioService {
   deleteUsuario(id: number): Observable<void> {
     return this.http.delete<void>(this.api + 'deleteUsuario/' + id);
   }
+
+  solicitarCambioClave(username: string): Observable<{ correo: string; correoMask: string }> {
+    return this.http.post<{ correo: string; correoMask: string }>(
+      this.api + 'solicitarCambioClave',
+      { username },
+    );
+  }
+
+  validarCodigoCambio(username: string, codigo: string): Observable<void> {
+    return this.http.post<void>(this.api + 'validarCodigoCambio', {
+      username,
+      password: codigo,
+    });
+  }
+
+  cambiarClave(username: string, newPassword: string): Observable<Usuario> {
+    return this.http.put<Usuario>(this.api + 'cambiarClave', {
+      username,
+      password: newPassword,
+    });
+  }
 }

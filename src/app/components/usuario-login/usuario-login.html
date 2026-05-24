@@ -73,7 +73,7 @@
 
             <div class="flex items-center justify-between mt-2 mb-4 gap-8">
               <div class="flex items-center"></div>
-              <span class="link-span">¿Olvidaste tu contraseña?</span>
+              <span class="link-span" (click)="irARecuperacion()">¿Olvidaste tu contraseña?</span>
             </div>
             <p-button styleClass="w-full boton-ingresar" type="submit" [disabled]="loading">
               {{ loading ? 'Cargando...' : 'INGRESAR' }}</p-button

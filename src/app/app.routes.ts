@@ -9,11 +9,13 @@ import { JugadorTable } from './components/jugador-table/jugador-table';
 import { PartidoTable } from './components/partido-table/partido-table';
 import { EstadioTable } from './components/estadio-table/estadio-table';
 import { SidenavAdmin } from './components/sidenav-admin/sidenav-admin';
+import { PasswordRecovery } from './components/password-recovery/password-recovery';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: UsuarioLogin },
   { path: 'registro', component: UsuarioRegistro },
+  { path: 'olvido-password', component: PasswordRecovery },
   {
     path: '',
     component: SidenavAdmin,

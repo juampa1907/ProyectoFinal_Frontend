@@ -63,6 +63,10 @@ export class UsuarioLogin {
     return !!(control?.hasError(error) && control?.touched);
   }
 
+  irARecuperacion(): void {
+    window.open('/olvido-password', '_blank');
+  }
+
   onSubmit(): void {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();

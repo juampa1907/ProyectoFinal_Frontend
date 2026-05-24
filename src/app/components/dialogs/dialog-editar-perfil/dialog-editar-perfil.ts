@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal, Output, EventEmitter } from '@angular/core';
+import { Component, inject, OnInit, signal, Output, EventEmitter, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -14,6 +14,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { UsuarioService } from '../../../service/usuario-service';
 import { PerfilService } from '../../../service/perfil-service';
 import { DialogService } from '../../../service/dialog-service';
+import { DialogCodigoVerificacion } from '../dialog-codigo-verificacion/dialog-codigo-verificacion';
 
 export function conNumero(c: AbstractControl): ValidationErrors | null {
   return /\d/.test(c.value) ? { conNumero: true } : null;
@@ -39,7 +40,7 @@ export function tieneMayuscula(c: AbstractControl): ValidationErrors | null {
 
 @Component({
   selector: 'app-dialog-editar-perfil',
-  imports: [CommonModule, ReactiveFormsModule, DialogModule, ButtonModule, InputTextModule],
+  imports: [CommonModule, ReactiveFormsModule, DialogModule, ButtonModule, InputTextModule, DialogCodigoVerificacion],
   templateUrl: './dialog-editar-perfil.html',
   styleUrl: './dialog-editar-perfil.css',
 })
@@ -50,10 +51,11 @@ export class DialogEditarPerfil implements OnInit {
   private dialogService = inject(DialogService);
 
   @Output() perfilEditado = new EventEmitter<any>();
+  @ViewChild(DialogCodigoVerificacion) codigoDialog!: DialogCodigoVerificacion;
 
   visible = false;
   loading = signal(false);
-  showPassword = signal(false);
+  correoDestino = signal('');
 
   form!: FormGroup;
   private usuarioId!: number;
@@ -82,10 +84,6 @@ export class DialogEditarPerfil implements OnInit {
         usuario?.correo ?? '',
         [Validators.required, Validators.email, tieneEspacio, tieneMayuscula],
       ],
-      password: [
-        '',
-        [Validators.minLength(6), Validators.maxLength(8)],
-      ],
     });
   }
 
@@ -101,16 +99,54 @@ export class DialogEditarPerfil implements OnInit {
 
   cancelar(): void {
     this.visible = false;
-    this.showPassword.set(false);
-    this.form.get('password')?.reset('');
     this.cargarDatosUsuario();
   }
 
-  togglePassword(): void {
-    this.showPassword.update((v) => !v);
-    if (!this.showPassword()) {
-      this.form.get('password')?.reset('');
+  solicitarCambioPassword(): void {
+    const username = this.form.value.username;
+    if (!username) {
+      this.dialogService.mostrar('Debe ingresar un username', 'error');
+      return;
     }
+
+    this.loading.set(true);
+
+    setTimeout(() => {
+      this.usuarioService.solicitarCambioClave(username).subscribe({
+        next: (res) => {
+          this.loading.set(false);
+          this.correoDestino.set(res.correoMask ?? res.correo);
+          this.codigoDialog.abrir();
+        },
+        error: (err) => {
+          this.loading.set(false);
+          this.dialogService.mostrar(
+            err.error?.message ?? 'Error del servidor',
+            'error',
+          );
+        },
+      });
+    });
+  }
+
+  onCodigoVerificado(codigo: string): void {
+    const username = this.form.value.username;
+    this.usuarioService.validarCodigoCambio(username, codigo).subscribe({
+      next: () => {
+        this.codigoDialog.cerrar();
+        this.dialogService.mostrar(
+          'Código verificado. Redirigiendo para cambiar contraseña...',
+          'exito',
+        );
+        setTimeout(() => {
+          window.open(`/olvido-password?step=2&username=${encodeURIComponent(username)}`, '_blank');
+        }, 1500);
+      },
+      error: () => {
+        this.codigoDialog.mostrarError();
+        this.dialogService.mostrar('Código inválido o expirado', 'error');
+      },
+    });
   }
 
   onSubmit(): void {
@@ -127,10 +163,6 @@ export class DialogEditarPerfil implements OnInit {
       password: this.usuario?.password,
     };
 
-    if (this.showPassword() && this.form.value.password) {
-      payload.password = this.form.value.password;
-    }
-
     this.usuarioService.putUsuario(payload).subscribe({
       next: (response) => {
         sessionStorage.setItem('usuarioLogueado', JSON.stringify(response));
@@ -141,7 +173,6 @@ export class DialogEditarPerfil implements OnInit {
         this.visible = false;
       },
       error: (error) => {
-        // error handled silently
         const mensaje = error?.error?.message || 'Error del servidor, intente más tarde';
         this.dialogService.mostrar(mensaje, 'error');
         this.loading.set(false);
